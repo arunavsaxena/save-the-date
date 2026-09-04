@@ -27,61 +27,37 @@ Guests only ever see the form on this page. Behind it, the page POSTs to a
 Google Form, and the Form drops each reply into its linked Sheet — which stays
 private to whoever owns it. Nothing on the page links out to Google.
 
-### 1. Build the Form
+The Form and its field ids are already wired into `index.html`. This section
+records how, so it can be rebuilt or repointed later.
 
-Create a form at [forms.new](https://forms.new) with these seven questions, in
-this order. Make every one a **Short answer** except the last two, which are
-**Paragraph**:
+**Form:** `1FAIpQLSewM_dhebvTa_yj5_W1KRt9gX3bUjafmIamG2t1-gl1lzRrcg`
 
-| # | Question | Type |
-|---|----------|------|
-| 1 | Name | Short answer |
-| 2 | Phone number | Short answer |
-| 3 | Email ID | Short answer |
-| 4 | Functions attending | Short answer |
-| 5 | Number of guests | Short answer |
-| 6 | Special requests | Paragraph |
-| 7 | Message for us | Paragraph |
+| Question | Type | Field id | Sent from |
+|----------|------|----------|-----------|
+| Full Name | Short answer | `entry.1224194294` | `name` |
+| Phone number | Short answer | `entry.883360929` | `phone` |
+| Email ID | Short answer | `entry.857968569` | `email` |
+| Functions attending | Short answer | `entry.771900964` | `functionsText` |
+| Number of guests | Short answer | `entry.1672330680` | `guests` |
+| Special requests | Paragraph | `entry.355334609` | `requests` |
+| Message for us | Paragraph | `entry.1674024418` | `message` |
 
-Use **Short answer**, not Checkboxes, for "Functions attending". A Google
-Forms checkbox question rejects the whole submission if a value does not match
-one of its options character-for-character; a text question accepts anything.
-Leave every question **not required** — validation already happens on the page,
-and a required question Google cannot see filled will reject the reply.
+Every question is deliberately **not required** — the page validates first, and
+a required question Google cannot see filled rejects the whole reply.
+"Functions attending" is deliberately **Short answer**: a Checkboxes question
+rejects any value that does not match one of its options exactly.
 
-Then, in the form's **Responses** tab, click **Link to Sheets**.
+### Rebuilding this mapping
 
-### 2. Read the field ids
+Field ids live in the `FB_PUBLIC_LOAD_DATA_` blob on the form's public page:
 
-Open the form's **Preview** (the eye icon), view source, and search for
-`entry.`. Each question has an id like `entry.1234567890`, in question order.
-The form's own id is the long token in its share link:
-
-```
-https://docs.google.com/forms/d/e/<THIS PART>/viewform
+```sh
+curl -sL "https://docs.google.com/forms/d/e/<FORM_ID>/viewform" \
+  | grep -o 'FB_PUBLIC_LOAD_DATA_ = .*'
 ```
 
-### 3. Fill in the config
-
-Near the top of the `<script>` block in `index.html`:
-
-```js
-var GOOGLE_FORM = {
-  id: "1FAIpQLSc...",            // from the share link
-  fields: {
-    name:      "entry.1111111111",
-    phone:     "entry.2222222222",
-    email:     "entry.3333333333",
-    functions: "entry.4444444444",
-    guests:    "entry.5555555555",
-    requests:  "entry.6666666666",
-    message:   "entry.7777777777"
-  }
-};
-```
-
-Any field left as `""` is simply not sent. Leaving `id` empty disables the
-Google Form path entirely.
+Each question appears as `[[<entry id>, ...]]` in question order. The form id
+is the long token in the share link.
 
 ### What to expect
 
@@ -113,5 +89,5 @@ Payload:
 ## Before sharing with guests
 
 - [ ] Replace the two `+91 00000 00000` placeholders in the footer
-- [ ] Create the Google Form, fill in `GOOGLE_FORM`, and send one test reply
+- [ ] Delete the two `ZZ ... TEST` rows from the responses Sheet
 - [ ] Confirm the Google Maps link points at the right Evara property

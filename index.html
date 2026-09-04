@@ -289,15 +289,19 @@
   // read them off the form. Leave `id` empty and replies stay in the guest's
   // own browser and go nowhere else.
   var GOOGLE_FORM = {
-    id: "",
+    id: "1FAIpQLSewM_dhebvTa_yj5_W1KRt9gX3bUjafmIamG2t1-gl1lzRrcg",
     fields: {
-      name:      "",
-      phone:     "",
-      email:     "",
-      functions: "",
-      guests:    "",
-      requests:  "",
-      message:   ""
+      name:          "entry.1224194294",
+      phone:         "entry.883360929",
+      email:         "entry.857968569",
+      // "Functions attending" is a Short answer question, so it takes the
+      // joined string. If it is ever switched to Checkboxes, move the id onto
+      // `functions` below and the sender will repeat it once per choice.
+      functionsText: "entry.771900964",
+      functions:     "",
+      guests:        "entry.1672330680",
+      requests:      "entry.355334609",
+      message:       "entry.1674024418"
     }
   };
 
