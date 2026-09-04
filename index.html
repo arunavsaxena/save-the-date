@@ -282,9 +282,29 @@
   // ---- Config -------------------------------------------------------------
   // Countdown target: celebrations begin, 27 Jan 2027 12:30 PM IST.
   var TARGET = new Date("2027-01-27T12:30:00+05:30").getTime();
-  // Set to a POST endpoint (Formspree, Apps Script, etc.) to collect RSVPs.
-  // Empty string keeps replies in this browser only.
+
+  // Google Form that collects RSVPs. `id` is the long token in the form's
+  // share link: .../forms/d/e/<id>/viewform. Each value below is the
+  // `entry.NNNNNN` id of the matching question — README.md explains how to
+  // read them off the form. Leave `id` empty and replies stay in the guest's
+  // own browser and go nowhere else.
+  var GOOGLE_FORM = {
+    id: "",
+    fields: {
+      name:      "",
+      phone:     "",
+      email:     "",
+      functions: "",
+      guests:    "",
+      requests:  "",
+      message:   ""
+    }
+  };
+
+  // Optional extra endpoint accepting a JSON POST (Formspree, Apps Script...).
+  // Runs alongside the Google Form rather than instead of it.
   var RSVP_ENDPOINT = "";
+
   var STORE_KEY = "sa-wedding-rsvps";
 
   // ---- Intro envelope -----------------------------------------------------
@@ -345,6 +365,41 @@
     thanks.scrollIntoView({ block: "center", behavior: "smooth" });
   }
 
+  function postToGoogleForm(entry) {
+    if (!GOOGLE_FORM.id) return Promise.resolve();
+
+    var body = new URLSearchParams();
+    Object.keys(GOOGLE_FORM.fields).forEach(function (key) {
+      var field = GOOGLE_FORM.fields[key];
+      if (!field) return;
+      var value = entry[key];
+      if (Array.isArray(value)) {
+        // A checkbox question wants its entry id repeated once per choice.
+        value.forEach(function (choice) { body.append(field, choice); });
+      } else {
+        body.append(field, value == null ? "" : String(value));
+      }
+    });
+
+    // Google Forms sends no CORS headers, so this must be a no-cors request
+    // and the response is opaque — we cannot tell a save from a rejection.
+    // Verify against the linked Sheet after a test reply.
+    return fetch(
+      "https://docs.google.com/forms/d/e/" + GOOGLE_FORM.id + "/formResponse",
+      { method: "POST", mode: "no-cors", body: body }
+    ).catch(function () { /* reply is still stored locally */ });
+  }
+
+  function postToEndpoint(entry) {
+    var endpoint = RSVP_ENDPOINT.trim();
+    if (!endpoint) return Promise.resolve();
+    return fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(entry)
+    }).catch(function () { /* reply is still stored locally */ });
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -360,33 +415,27 @@
       name: fd.get("name"),
       phone: fd.get("phone"),
       email: fd.get("email") || "",
-      functions: functions.join(", "),
+      functions: functions,
+      functionsText: functions.join(", "),
       guests: fd.get("guests"),
       requests: fd.get("requests") || "",
       message: fd.get("message") || "",
       submittedAt: new Date().toISOString()
     };
 
+    // Keep a local copy first. Google's response is opaque (see below), so
+    // this is the only record that survives a send that silently failed.
     try {
       var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "[]");
       saved.push(entry);
       localStorage.setItem(STORE_KEY, JSON.stringify(saved));
     } catch (err) { /* storage unavailable */ }
 
-    var endpoint = RSVP_ENDPOINT.trim();
-    if (!endpoint) {
-      showThanks();
-      return;
-    }
-
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending…";
-    fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(entry)
-    })
-      .catch(function () { /* reply is still stored locally */ })
+
+    Promise.all([postToGoogleForm(entry), postToEndpoint(entry)])
+      .catch(function () {})
       .then(function () {
         submitBtn.disabled = false;
         submitBtn.textContent = "Send RSVP";
