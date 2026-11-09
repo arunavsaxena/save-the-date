@@ -30,6 +30,14 @@ countdown → events (Day One and Day Two) → RSVP → who to call → gallery 
   a YouTube embed from a tap on anything other than the player itself, so a file
   is the only thing that plays reliably on a phone. Leave `AUDIO_SRC` empty to
   keep the page silent and hide the button.
+- **Motion** — each section settles in as it arrives, and a few layers drift
+  against the scroll: the hero photograph, Ganesh above the shloka, the washes
+  behind the venue card, the glow on the countdown and footer, and the gallery
+  photographs inside their frames. Both run off one rAF-throttled scroll pass
+  rather than an IntersectionObserver, so nothing can stay invisible because a
+  callback never arrived, and both are skipped entirely for
+  `prefers-reduced-motion`.
+
 - **Countdown** — ticks to 27 Jan 2027, 12:00 PM IST (Welcome Lunch). Change
   `TARGET` at the top of the script block to retarget it at the Vivah Sanskar
   (`2027-01-28T11:00:00+05:30`).

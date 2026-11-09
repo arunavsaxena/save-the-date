@@ -197,6 +197,12 @@
   .gal .empty { position: absolute; inset: 0; display: grid; place-items: center; color: #B29B76; }
   .gal .empty svg { width: 36px; height: 36px; }
 
+  /* Sections settle into place as they come into view, and a few layers drift
+     against the scroll. Both are off when the reader asks for less motion. */
+  .rv { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .9s cubic-bezier(.4,0,.2,1); }
+  .rv.in { opacity: 1; transform: none; }
+  [data-px] { will-change: transform; }
+
   [hidden] { display: none !important; }
 
   @media (prefers-reduced-motion: reduce) {
@@ -252,7 +258,7 @@
 
   <!-- ============ Hero ============ -->
   <section data-screen-label="Hero" style="position:relative;min-height:100svh;display:flex;align-items:flex-end;justify-content:center;background:#4A1522;overflow:hidden">
-    <img src="assets/couple.jpg" alt="Shambhavi and Arunav" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 24%" />
+    <img src="assets/couple.jpg" alt="Shambhavi and Arunav" data-px="-0.06" data-px-base="scale(1.1)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 24%" />
     <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(40,10,16,.62) 0%, rgba(42,10,17,.42) 22%, rgba(44,11,18,.24) 40%, rgba(48,12,19,.74) 74%, rgba(42,10,16,.94) 100%)"></div>
     <div style="position:relative;z-index:2;width:min(640px,88%);padding:120px 0 58px;text-align:center;color:#FBF3E7">
       <div style="display:flex;align-items:center;justify-content:center;gap:16px">
@@ -270,9 +276,9 @@
 
   <!-- ============ Invitation ============ -->
   <section data-screen-label="Invitation" style="background:#FBF6EE;padding:clamp(64px,13vw,104px) 26px;text-align:center">
-    <div style="max-width:580px;margin:0 auto">
+    <div class="rv" style="max-width:580px;margin:0 auto">
       <!-- Ganesh ji, drawn in a single weight of line. -->
-      <svg viewBox="0 0 64 64" role="img" aria-label="Shri Ganesh" style="width:clamp(54px,13vw,68px);height:auto;display:block;margin:0 auto 22px;color:#A98B5D" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 64 64" role="img" aria-label="Shri Ganesh" data-px="-0.035" style="width:clamp(54px,13vw,68px);height:auto;display:block;margin:0 auto 22px;color:#A98B5D" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M26.6 18.6 C27.2 12.4 29.8 9 32 6.6 C34.2 9 36.8 12.4 37.4 18.6" />
         <circle cx="32" cy="4.6" r="1.7" fill="currentColor" stroke="none" />
         <path d="M21.5 27.5 a10.5 10.5 0 0 1 21 0 v3.4 a10.5 10.5 0 0 1 -4.6 8.7" />
@@ -299,12 +305,12 @@
 
   <!-- ============ Venue ============ -->
   <section data-screen-label="Venue" style="position:relative;overflow:hidden;background:radial-gradient(90% 70% at 50% 0%, #FFF9EF 0%, rgba(255,249,239,0) 62%), linear-gradient(180deg, #F3E5CD 0%, #E9D7B8 100%);padding:clamp(58px,12vw,92px) 22px;text-align:center">
-    <div aria-hidden="true" style="position:absolute;left:-120px;top:-90px;z-index:0;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle, rgba(169,139,93,.26), rgba(169,139,93,0) 70%)"></div>
-    <div aria-hidden="true" style="position:absolute;right:-130px;bottom:-110px;z-index:0;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle, rgba(169,139,93,.26), rgba(169,139,93,0) 70%)"></div>
+    <div aria-hidden="true" data-px="0.08" style="position:absolute;left:-120px;top:-90px;z-index:0;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle, rgba(169,139,93,.26), rgba(169,139,93,0) 70%)"></div>
+    <div aria-hidden="true" data-px="-0.08" style="position:absolute;right:-130px;bottom:-110px;z-index:0;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle, rgba(169,139,93,.26), rgba(169,139,93,0) 70%)"></div>
     <!-- The details sit on their own ivory card, so nothing sinks into the wash
          behind it. No z-index on the card: a stacking context would stop the
          logo's multiply blend from reaching the card underneath. -->
-    <div style="position:relative;max-width:560px;margin:0 auto;background:#FFFDF8;border:1px solid #DEC9A3;box-shadow:0 22px 54px rgba(70,38,28,.16);padding:clamp(30px,7vw,48px) clamp(22px,6vw,44px)">
+    <div class="rv" style="position:relative;max-width:560px;margin:0 auto;background:#FFFDF8;border:1px solid #DEC9A3;box-shadow:0 22px 54px rgba(70,38,28,.16);padding:clamp(30px,7vw,48px) clamp(22px,6vw,44px)">
       <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#9A7B45">The venue</div>
       <img src="assets/evara-logo.jpeg" alt="Evara Spa and Resort" style="display:block;width:min(220px,58vw);height:auto;margin:24px auto 20px;mix-blend-mode:multiply" />
       <h3 style="font:500 clamp(34px,8.6vw,52px) 'Cormorant Garamond',serif;margin:0;color:#5E1C2A;letter-spacing:.02em;line-height:1.1">Evara Resort &amp; Spa</h3>
@@ -315,8 +321,8 @@
 
   <!-- ============ Countdown ============ -->
   <section data-screen-label="Countdown" style="position:relative;background:#5E1C2A;padding:clamp(64px,13vw,100px) 22px;text-align:center;overflow:hidden">
-    <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 0%, rgba(217,190,144,.18), rgba(217,190,144,0) 70%)"></div>
-    <div style="position:relative;z-index:2;max-width:640px;margin:0 auto;color:#FBF3E7">
+    <div aria-hidden="true" data-px="0.06" style="position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 0%, rgba(217,190,144,.18), rgba(217,190,144,0) 70%)"></div>
+    <div class="rv" style="position:relative;z-index:2;max-width:640px;margin:0 auto;color:#FBF3E7">
       <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#E6CFA3">Until the celebrations begin</div>
       <h2 style="font:300 clamp(28px,7vw,42px) 'Cormorant Garamond',serif;margin:16px 0 40px">The countdown begins</h2>
       <div style="display:flex;justify-content:center;gap:clamp(16px,6vw,44px)">
@@ -345,7 +351,7 @@
 
   <!-- ============ Events ============ -->
   <section data-screen-label="Events" style="background:#FBF6EE;padding:clamp(64px,13vw,104px) 26px">
-    <div style="max-width:680px;margin:0 auto">
+    <div class="rv" style="max-width:680px;margin:0 auto">
       <div style="text-align:center">
         <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#9A7B45">The celebrations</div>
         <h2 style="font:300 clamp(30px,7.5vw,48px) 'Cormorant Garamond',serif;margin:16px 0 0;color:#3C2A24">Join us for every moment</h2>
@@ -402,7 +408,7 @@
 
   <!-- ============ RSVP ============ -->
   <section data-screen-label="RSVP" id="rsvp" style="background:#EEE4D5;padding:clamp(56px,11vw,90px) 20px clamp(72px,14vw,110px)">
-    <div style="max-width:620px;margin:0 auto;background:#FBF6EE;padding:clamp(28px,7vw,54px);box-shadow:0 24px 60px rgba(70,38,28,.10)">
+    <div class="rv" style="max-width:620px;margin:0 auto;background:#FBF6EE;padding:clamp(28px,7vw,54px);box-shadow:0 24px 60px rgba(70,38,28,.10)">
       <div style="text-align:center;margin-bottom:30px">
         <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#9A7B45">Kindly reply</div>
         <h2 style="font:300 clamp(34px,9vw,52px) 'Cormorant Garamond',serif;margin:14px 0 0;color:#3C2A24;letter-spacing:.02em">RSVP</h2>
@@ -530,7 +536,7 @@
   <!-- ============ Contacts ============ -->
   <section data-screen-label="Contacts" id="contacts" style="position:relative;background:#5E1C2A;color:#FBF3E7;text-align:center;overflow:hidden;padding:clamp(56px,11vw,86px) 26px">
     <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 0%, rgba(217,190,144,.16), rgba(217,190,144,0) 70%)"></div>
-    <div style="position:relative;z-index:2;display:grid;gap:18px;justify-content:center;max-width:620px;margin:0 auto">
+    <div class="rv" style="position:relative;z-index:2;display:grid;gap:18px;justify-content:center;max-width:620px;margin:0 auto">
       <div style="font:700 12px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#E6CFA3">For any assistance please contact</div>
       <div id="contact-list" style="display:grid;gap:12px;min-width:min(360px,84vw)"></div>
     </div>
@@ -550,8 +556,8 @@
 
   <!-- ============ Footer ============ -->
   <footer data-screen-label="Footer" style="position:relative;background:#4A1522;color:#FBF3E7;text-align:center;overflow:hidden;padding:clamp(66px,13vw,104px) 26px clamp(56px,9vw,80px)">
-    <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 0%, rgba(217,190,144,.16), rgba(217,190,144,0) 70%)"></div>
-    <div style="position:relative;z-index:2;max-width:620px;margin:0 auto">
+    <div aria-hidden="true" data-px="0.05" style="position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 0%, rgba(217,190,144,.16), rgba(217,190,144,0) 70%)"></div>
+    <div class="rv" style="position:relative;z-index:2;max-width:620px;margin:0 auto">
       <div style="font:400 min(7.1vw,62px) 'Pinyon Script',cursive;line-height:1.3;white-space:nowrap">eagerly awaiting your presence</div>
       <div style="width:44px;height:1px;background:rgba(217,190,144,.5);margin:34px auto"></div>
       <div style="font:500 clamp(20px,4.8vw,26px) 'Cormorant Garamond',serif;letter-spacing:.16em;color:rgba(251,243,231,.9)">With lots of love,</div>
@@ -781,6 +787,69 @@
     btn.hidden = false;
   })();
 
+  // ---- Parallax and reveals -----------------------------------------------
+  // A few layers drift against the scroll, and each section settles in as it
+  // arrives. Both are skipped when the reader prefers less motion.
+  var observeReveals = function () {};     // anything built later joins in
+  var refreshParallax = function () {};
+  (function () {
+    // Reveals run off the same scroll pass as the drift rather than an
+    // IntersectionObserver: one code path, and nothing can stay invisible
+    // because a callback did not arrive.
+    var waiting = [].slice.call(document.querySelectorAll(".rv"));
+    if (reduceMotion) {
+      waiting.forEach(function (el) { el.classList.add("in"); });
+      waiting = [];
+      observeReveals = function (els) { [].forEach.call(els, function (el) { el.classList.add("in"); }); };
+    } else {
+      observeReveals = function (els) {
+        [].forEach.call(els, function (el) { if (!el.classList.contains("in")) waiting.push(el); });
+        show();
+      };
+    }
+
+    function show() {
+      if (!waiting.length) return;
+      var vh = window.innerHeight;
+      waiting = waiting.filter(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < vh * .92 && r.bottom > 0) { el.classList.add("in"); return false; }
+        return true;
+      });
+    }
+
+    function layers() {
+      return [].slice.call(document.querySelectorAll("[data-px]")).map(function (el) {
+        return { el: el, speed: parseFloat(el.getAttribute("data-px")) || 0, base: el.getAttribute("data-px-base") || "" };
+      });
+    }
+    var moving = reduceMotion ? [] : layers();
+
+    function drift() {
+      var vh = window.innerHeight;
+      for (var i = 0; i < moving.length; i++) {
+        var m = moving[i], r = m.el.getBoundingClientRect();
+        if (r.bottom < -160 || r.top > vh + 160) continue;        // off screen, leave it
+        var fromCentre = r.top + r.height / 2 - vh / 2;
+        m.el.style.transform = (m.base ? m.base + " " : "") +
+          "translate3d(0," + (fromCentre * m.speed).toFixed(1) + "px,0)";
+      }
+    }
+
+    var queued = false;
+    function onScroll() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; show(); drift(); });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    refreshParallax = function () { if (!reduceMotion) moving = layers(); show(); drift(); };
+    window.addEventListener("load", refreshParallax);
+    show();
+    drift();
+  })();
+
   // ---- Countdown ----------------------------------------------------------
   var els = {
     days: document.getElementById("cd-days"),
@@ -808,8 +877,10 @@
     var frame = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.2"/><path d="M8.4 6l1.1-2h5l1.1 2"/></svg>';
     if (GALLERY.length) {
       host.innerHTML = GALLERY.map(function (file, i) {
-        return '<figure><img src="assets/gallery/' + esc(file) + '" alt="Shambhavi and Arunav, photograph ' + (i + 1) + '" loading="lazy" /></figure>';
+        return '<figure class="rv"><img src="assets/gallery/' + esc(file) + '" alt="Shambhavi and Arunav, photograph ' + (i + 1) + '" loading="lazy" data-px="0.045" data-px-base="scale(1.08)" /></figure>';
       }).join("");
+      observeReveals(host.querySelectorAll("figure"));
+      refreshParallax();
     } else {
       var cells = [];
       for (var i = 0; i < GALLERY_PLACEHOLDERS; i++) {
