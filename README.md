@@ -60,7 +60,7 @@ Run `rotateBrideInviteKey` if the link leaks, then send guests the new one.
 | Days attending | Day 1 · Wed 27 Jan, Day 2 · Thu 28 Jan — at least one. Stored with a hyphen (`Day 1 - Wed 27 Jan`): see the note below |
 | Guests | How many are coming, counting themselves (1 to 10) |
 | Mode of transport | Road, train or flight |
-| Arrival date and time | 26–28 Jan |
+| Arrival date and time | 26–28 Jan, time in quarter hours. Both are selects: iOS Safari draws `input[type=time]` in its own box, ignoring the surrounding type |
 | Special assistance | Accommodation for driver · Pick-up at the railway station (then which station, and the train) · Special medical care (then what to arrange) |
 | ID proof per guest | **Optional.** Name as on ID, ID type, and a photo or PDF up to 5 MB |
 
