@@ -13,19 +13,19 @@ CNAME               Custom domain for GitHub Pages
 ## Sections
 
 Envelope → hero → invitation (Ganesh shloka and the parents' words) → venue →
-countdown → events (Day One and Day Two) → RSVP → gallery → footer.
+countdown → events (Day One and Day Two) → RSVP → who to call → gallery → footer.
 
 ## Behaviour
 
-- **Intro envelope** — a drawn burgundy envelope, no photograph: tapping the wax
-  seal swings the flap open and lifts the screen away. The animation is the one
-  from `arunav-rsvp-invitation`, recoloured. Scroll is locked until it is opened,
-  and Enter, Space or Escape open it too.
-- **Music** — starts as the envelope opens, with a mute button at the bottom left.
-  `AUDIO_SRC` takes either a YouTube link (played through a hidden player) or a
-  file in `assets/`. It is currently the YouTube link
-  `https://www.youtube.com/watch?v=uJrRbYEaMVM`. Browsers block sound until a tap,
-  so the first note always follows the tap on the seal; leave `AUDIO_SRC` empty to
+- **Intro envelope** — a drawn burgundy envelope filling the screen, no
+  photograph and no seal: tapping anywhere swings the flap open and lifts the
+  screen away. Scroll is locked until it is opened, and Enter, Space or Escape
+  open it too.
+- **Music** — `assets/shloka.mp3` (Om Mangalam Bhagwan Vishnu, 42 seconds,
+  looped), started by the tap that opens the envelope, with a mute button at the
+  bottom left. `AUDIO_SRC` also accepts a YouTube link, but phones refuse to start
+  a YouTube embed from a tap on anything other than the player itself, so a file
+  is the only thing that plays reliably on a phone. Leave `AUDIO_SRC` empty to
   keep the page silent and hide the button.
 - **Countdown** — ticks to 27 Jan 2027, 12:00 PM IST (Welcome Lunch). Change
   `TARGET` at the top of the script block to retarget it at the Vivah Sanskar
@@ -91,12 +91,13 @@ deployment, so always deploy a new *version*, never a new deployment.
 
 Names and roles (Tarun, Sonia, Vedika) are in `index.html`; the numbers are not.
 They live in the Apps Script project's Script Properties under **`CONTACTS_BRIDE`**
-as JSON, and are served only to visitors holding a valid invite key:
+as JSON, and are served only to visitors holding a valid invite key. The
+parents carry no role label, so leave those blank:
 
 ```json
 [
-  {"name": "Tarun Sharma", "role": "Father", "phone": "+91 98xxx xxxxx"},
-  {"name": "Sonia Sharma", "role": "Mother", "phone": "+91 98xxx xxxxx"},
+  {"name": "Tarun Sharma", "role": "", "phone": "+91 98xxx xxxxx"},
+  {"name": "Sonia Sharma", "role": "", "phone": "+91 98xxx xxxxx"},
   {"name": "Vedika", "role": "RSVP co-ordinator", "phone": "+91 98xxx xxxxx"}
 ]
 ```
@@ -107,6 +108,7 @@ as JSON, and are served only to visitors holding a valid invite key:
 - [x] Backend deployed and test replies confirmed in **Bride side RSVPs**
 - [ ] Fill `CONTACTS_BRIDE` with the three numbers
 - [ ] Listen to the page once on a phone, to check the music starts and mutes
+- [x] Music file added (`assets/shloka.mp3`)
 - [x] Gallery photographs added (four, in `assets/gallery/`)
 - [ ] Confirm the Google Maps link points at the right Evara property
 - [ ] Push the site so GitHub Pages serves the new page
