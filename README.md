@@ -12,17 +12,17 @@ CNAME               Custom domain for GitHub Pages
 
 ## Sections
 
-Envelope → hero → invitation (Ganesh shloka and the parents' words) → venue →
+Landing arch → hero → invitation (Ganesh shloka and the parents' words) → venue →
 countdown → events (Day One and Day Two) → RSVP → who to call → gallery → footer.
 
 ## Behaviour
 
-- **Intro envelope** — a large envelope of warm paper on a dusk sky with paper
-  lanterns rising through it, the sky taken from `arunav-rsvp-invitation`. The
-  flap is an SVG so its lower edge can curve rather than come to a point, and
-  the card is drawn out far enough to read every line. No photograph and no
-  seal: a tap anywhere on the screen swings the flap open and lifts it away.
-  Scroll is locked until it is opened, and Enter, Space or Escape open it too.
+- **Landing screen** — the invitation stands in a lit arch on a dusk sky with
+  paper lanterns rising through it, the sky taken from `arunav-rsvp-invitation`.
+  The arch is drawn in CSS, so it scales with the screen rather than as an
+  image. A tap anywhere lifts it away. Scroll is locked until it is opened, and
+  Enter, Space or Escape open it too.
+
 - **Music** — `assets/shloka.mp3` (Om Mangalam Bhagwan Vishnu, 42 seconds,
   looped), started by the tap that opens the envelope, with a mute button at the
   bottom left. `AUDIO_SRC` also accepts a YouTube link, but phones refuse to start
