@@ -12,16 +12,17 @@ CNAME               Custom domain for GitHub Pages
 
 ## Sections
 
-Landing arch → hero → invitation (Ganesh shloka and the parents' words) → venue →
+Landing → hero → invitation (Ganesh shloka and the parents' words) → venue →
 countdown → events (Day One and Day Two) → RSVP → who to call → gallery → footer.
 
 ## Behaviour
 
-- **Landing screen** — the invitation stands in a lit arch on a dusk sky with
-  paper lanterns rising through it, the sky taken from `arunav-rsvp-invitation`.
-  The arch is drawn in CSS, so it scales with the screen rather than as an
-  image. A tap anywhere lifts it away. Scroll is locked until it is opened, and
-  Enter, Space or Escape open it too.
+- **Landing screen** — the same scene as the groom's site: a watercolour of the
+  resort at golden hour behind, the garden and its brass lanterns in front, and
+  the invitation on frosted glass between them, drifting a little with the
+  pointer. The arch here is domed rather than cusped. Artwork lives in
+  `assets/landing/` and is shared with `arunav-rsvp-invitation`. A tap anywhere
+  lifts it away; Enter, Space or Escape do too, and scroll is locked until then.
 
 - **Music** — `assets/shloka.mp3` (Om Mangalam Bhagwan Vishnu, 42 seconds,
   looped), started by the tap that opens the envelope, with a mute button at the
