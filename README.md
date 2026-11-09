@@ -17,9 +17,11 @@ countdown → events (Day One and Day Two) → RSVP → who to call → gallery 
 
 ## Behaviour
 
-- **Intro envelope** — a large ivory envelope on a dusk sky with paper lanterns
-  rising through it, both taken from `arunav-rsvp-invitation`. No photograph and
-  no seal: a tap anywhere on the screen swings the flap open and lifts it away.
+- **Intro envelope** — a large envelope of warm paper on a dusk sky with paper
+  lanterns rising through it, the sky taken from `arunav-rsvp-invitation`. The
+  flap is an SVG so its lower edge can curve rather than come to a point, and
+  the card is drawn out far enough to read every line. No photograph and no
+  seal: a tap anywhere on the screen swings the flap open and lifts it away.
   Scroll is locked until it is opened, and Enter, Space or Escape open it too.
 - **Music** — `assets/shloka.mp3` (Om Mangalam Bhagwan Vishnu, 42 seconds,
   looped), started by the tap that opens the envelope, with a mute button at the
