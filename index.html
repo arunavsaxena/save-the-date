@@ -4,10 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Shambhavi &amp; Arunav · 27 &amp; 28 January 2027</title>
-<meta name="description" content="Shambhavi and Arunav are getting married on 27 &amp; 28 January 2027 at Evara Resort &amp; Spa, Jim Corbett, Uttarakhand. Save the date and RSVP." />
+<meta name="description" content="Sonia and Tarun Sharma seek your auspicious presence for the shubh vivah of their daughter Shambhavi with Arunav Saxena, on 27 &amp; 28 January 2027 at Evara Resort &amp; Spa, Jim Corbett, Uttarakhand." />
 <meta name="theme-color" content="#4A1522" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Shambhavi &amp; Arunav — Save the Date" />
+<meta property="og:title" content="Shambhavi &amp; Arunav · Save the Date" />
 <meta property="og:description" content="27 &amp; 28 January 2027 · Evara Resort &amp; Spa · Jim Corbett, Uttarakhand" />
 <meta property="og:image" content="https://save-the-date.arunav.work/assets/og.jpg" />
 <meta property="og:url" content="https://save-the-date.arunav.work/" />
@@ -15,25 +15,94 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%235E1C2A'/%3E%3Ctext x='32' y='45' font-size='36' font-family='Georgia,serif' fill='%23FBF3E7' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Pinyon+Script&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&family=Karla:wght@300;400;500;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet" />
 <style>
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body { margin: 0; background: #FBF6EE; color: #2C2320; font-family: Karla, sans-serif; overflow-x: hidden; }
   * { box-sizing: border-box; }
   a { color: #5E1C2A; text-decoration: none; }
   a:hover { color: #9A6B34; }
-  input, textarea, button { font: inherit; color: inherit; }
+  input, textarea, select, button { font: inherit; color: inherit; }
   input::placeholder, textarea::placeholder { color: #A79C90; }
   ::selection { background: #E7D6BE; }
   img { max-width: 100%; }
 
-  /* Intro overlay */
-  #intro { transition: opacity .9s ease, transform 1.1s cubic-bezier(.7,0,.2,1); }
-  #intro.is-open { opacity: 0; transform: translateY(-6%); pointer-events: none; }
+  /* ---------- Intro envelope ---------- */
+  /* A drawn envelope in the invitation's own burgundy: the flap swings open on
+     the seal, then the whole screen lifts away. */
+  #intro {
+    position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 24px;
+    background: radial-gradient(130% 90% at 50% 8%, #5E1C2A 0%, #4A1522 46%, #2E0A12 100%);
+    transition: opacity .9s ease .6s, visibility 0s linear 1.5s;
+  }
+  #intro.is-open { opacity: 0; visibility: hidden; pointer-events: none; }
   #intro[hidden] { display: none; }
 
-  .btn-open:hover { background: rgba(247,240,228,.16) !important; border-color: #F7F0E4 !important; }
-  .btn-open:focus-visible { outline: 2px solid #F7F0E4; outline-offset: 4px; }
+  .env {
+    position: relative; z-index: 2; width: min(380px, 88vw); height: min(600px, 82svh);
+    perspective: 1400px; cursor: pointer;
+    transition: transform 1.1s cubic-bezier(.7,0,.2,1) .5s;
+  }
+  #intro.is-open .env { transform: translateY(14vh) scale(.96); }
+  .env-body {
+    position: absolute; inset: 0; border-radius: 6px; overflow: hidden;
+    background: linear-gradient(160deg, #722434 0%, #4A1522 100%);
+    box-shadow: 0 40px 90px rgba(18,4,9,.6), inset 0 0 0 1px rgba(217,190,144,.32);
+  }
+  /* The two seams of the back flaps. */
+  .env-body::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(to top right, transparent calc(50% - .6px), rgba(217,190,144,.22) 50%, transparent calc(50% + .6px)) left bottom / 50% 46% no-repeat,
+      linear-gradient(to top left, transparent calc(50% - .6px), rgba(217,190,144,.22) 50%, transparent calc(50% + .6px)) right bottom / 50% 46% no-repeat;
+  }
+  .env-border { position: absolute; inset: 12px; border: 1px solid rgba(217,190,144,.42); border-radius: 3px; pointer-events: none; }
+  .env-flap {
+    position: absolute; left: 0; right: 0; top: 0; height: 52%; transform-origin: top center; z-index: 3;
+    transition: transform 1s cubic-bezier(.6,.05,.3,1); filter: drop-shadow(0 6px 12px rgba(18,4,9,.4));
+  }
+  .env-flap::before {
+    content: ""; position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 50% 100%);
+    background: linear-gradient(180deg, #83293A 0%, #5A1B29 100%);
+  }
+  #intro.is-open .env-flap { transform: rotateX(178deg); }
+
+  /* Ivory wax seal, as on the printed card. */
+  .seal {
+    position: absolute; z-index: 4; left: 50%; top: 52%; transform: translate(-50%, -50%);
+    width: 148px; height: 148px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+    background: radial-gradient(circle at 38% 32%, #FFFCF4 0%, #F1E3C9 54%, #D8C19A 100%);
+    box-shadow: 0 10px 26px rgba(26,6,12,.5), inset 0 -6px 14px rgba(120,90,50,.22), inset 0 4px 10px rgba(255,255,255,.55);
+    transition: transform .35s ease, opacity .5s ease;
+  }
+  .seal:hover { transform: translate(-50%, -50%) scale(1.04); }
+  .seal:focus-visible { outline: 2px solid #D9BE90; outline-offset: 6px; }
+  #intro.is-open .seal { opacity: 0; transform: translate(-50%, -50%) scale(.85); }
+  .seal svg { width: 100%; height: 100%; display: block; }
+
+  .env-top { position: absolute; z-index: 4; left: 0; right: 0; top: 7.5%; padding: 0 12px; text-align: center; transition: opacity .4s; }
+  #intro.is-open .env-top { opacity: 0; }
+  /* One line, always: the size follows the viewport so it never wraps. */
+  .env-top .eyebrow {
+    font: italic 400 min(3.2vw, 17px)/1.6 'Cormorant Garamond', serif;
+    letter-spacing: .02em; color: #F0E3CB; white-space: nowrap;
+  }
+
+  .env-text { position: absolute; z-index: 4; left: 0; right: 0; bottom: 7%; padding: 0 18px; text-align: center; }
+  .env-text .names { font: 400 clamp(30px,7vw,46px) 'Pinyon Script', cursive; line-height: 1.1; color: #FBF3E7; text-shadow: 0 3px 18px rgba(20,4,8,.5); }
+  .env-text .names .amp { display: inline-block; padding: 0 .14em; font-size: .7em; opacity: .85; }
+  .env-text .date { margin-top: 10px; font: 500 clamp(16px,4.2vw,22px) 'Cormorant Garamond', serif; letter-spacing: .2em; text-transform: uppercase; color: #E6CFA3; }
+  .env-text .tap { margin-top: 16px; font: 500 11px Karla, sans-serif; letter-spacing: .26em; text-transform: uppercase; color: rgba(251,243,231,.72); }
+
+  /* Wide screens: the envelope turns landscape, as a card would lie. */
+  @media (min-width: 760px) and (min-height: 520px) {
+    .env { width: min(760px, 84vw); height: min(500px, 74vh); }
+    .env-flap { height: 56%; }
+    .seal { top: 56%; width: 168px; height: 168px; }
+    .env-top { top: 10%; }
+    .env-text { bottom: 7%; }
+    #intro.is-open .env { transform: translateY(10vh) scale(.97); }
+  }
 
   .link-maps:hover { color: #9A6B34 !important; border-bottom-color: #9A6B34 !important; }
 
@@ -44,11 +113,59 @@
   .btn-submit[disabled] { opacity: .6; cursor: progress; }
   .btn-reset:hover { background: #5E1C2A !important; color: #FBF3E7 !important; }
 
+  /* Checked chips take the wine border, so a choice reads at a glance. */
+  .fn-chip:has(input:checked) { border-color: #5E1C2A !important; background: #FDF7EF !important; }
+  .sub-field { display: grid; gap: 12px; margin: 0 0 2px 20px; padding-left: 14px; border-left: 2px solid #E3D6C0; }
+
+  /* Validation: the message sits under the field it belongs to. */
+  .field-err { margin: 0; font: 500 14px Karla, sans-serif; color: #8C2C3E; }
+  .has-err .fld, .has-err .fn-chip { border-color: #8C2C3E !important; }
+
+  .ty-summary { list-style: none; margin: 22px auto 0; padding: 0; max-width: 360px; text-align: left; display: grid; gap: 9px; font: 400 18px 'Cormorant Garamond', serif; color: #5E554C; }
+  .ty-summary b { font: 600 11px Karla, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #9A7B45; }
+
+  /* The file picker, dressed as a field. */
+  .file-drop {
+    display: flex; align-items: center; gap: 10px; border: 1px dashed #CDBCA2; background: #FFFDF8;
+    padding: 14px; min-height: 52px; cursor: pointer; font: 400 16px Karla, sans-serif; color: #6B5F55;
+  }
+  .file-drop:hover { border-color: #A98B5D; }
+  .file-drop.has-file { border-style: solid; border-color: #5E1C2A; color: #3C2A24; background: #FDF7EF; }
+  .file-drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .file-drop svg { width: 20px; height: 20px; flex: none; color: #A98B5D; }
+  .guest-card { display: grid; gap: 12px; border: 1px solid #E3D6C0; background: #FFFDF8; padding: 16px; }
+  .guest-card .g-title { font: 700 12px Karla, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8C2C3E; }
+
+  /* Music, in the page's own palette. */
+  .music { position: fixed; left: 16px; bottom: 16px; z-index: 80; width: 50px; height: 50px; display: grid; place-items: center; border-radius: 50%; cursor: pointer; border: 1px solid rgba(217,190,144,.65); background: rgba(74,21,34,.9); color: #F3E2C4; box-shadow: 0 8px 22px rgba(40,10,16,.32); transition: background .25s ease; }
+  .music:hover { background: #5E1C2A; }
+  .music svg { width: 21px; height: 21px; }
+  .music .bar { transform-origin: center bottom; }
+  .music.playing .bar { animation: eq 1s ease-in-out infinite alternate; }
+  .music.playing .bar:nth-child(2) { animation-delay: .22s; }
+  .music.playing .bar:nth-child(3) { animation-delay: .44s; }
+  @keyframes eq { from { transform: scaleY(.45); } to { transform: scaleY(1); } }
+  #yt-host { position: fixed; left: -9999px; top: 0; width: 1px; height: 1px; border: 0; }
+
+  .ic { width: 42px; height: 42px; display: inline-grid; place-items: center; border: 1px solid rgba(251,243,231,.4); color: #FBF3E7; }
+  .ic:hover { background: rgba(251,243,231,.16); color: #FBF3E7; }
+  .ic svg { width: 19px; height: 19px; }
+
+  /* Gallery: tall rectangles in thin gold frames. */
+  /* Two frames across on a phone, more as the screen allows. */
+  .gal { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: clamp(12px, 3vw, 22px); }
+  .gal figure { margin: 0; position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: linear-gradient(160deg, #F3E7D2, #E8D8BC); box-shadow: 0 16px 36px rgba(70,38,28,.12); }
+  .gal figure::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(169,139,93,.55); pointer-events: none; }
+  .gal img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gal .empty { position: absolute; inset: 0; display: grid; place-items: center; color: #B29B76; }
+  .gal .empty svg { width: 36px; height: 36px; }
+
   [hidden] { display: none !important; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     #intro { transition: opacity .01ms; }
+    .music.playing .bar { animation: none; }
   }
 </style>
 <noscript><style>/* No JS: skip straight to the invitation. */ #intro{display:none !important}</style></noscript>
@@ -57,220 +174,338 @@
 
 <div style="width:100%;background:#FBF6EE">
 
-  <div id="intro" role="dialog" aria-modal="true" aria-label="Save the date — Shambhavi and Arunav" style="position:fixed;inset:0;z-index:90;overflow:hidden;background:#4A1017">
-    <img src="assets/envelope.jpg" alt="A burgundy envelope with a lace-trimmed flap, closed with an ivory wax seal" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center" />
-    <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(45,8,14,.72) 0%, rgba(45,8,14,.42) 34%, rgba(45,8,14,.06) 58%, rgba(45,8,14,.18) 100%)"></div>
-    <div style="position:absolute;left:0;right:0;top:clamp(48px,9vh,96px);display:flex;flex-direction:column;align-items:center;gap:clamp(9px,1.6vh,16px);padding:0 26px;text-align:center;color:#F7F0E4">
-      <div style="font:500 10px Karla,sans-serif;letter-spacing:.36em;text-transform:uppercase;color:rgba(247,240,228,.82)">Save the date</div>
-      <div style="font:400 clamp(32px,7vw,56px) 'Pinyon Script',cursive;line-height:1.1;text-shadow:0 3px 18px rgba(30,4,8,.45)">Shambhavi<span style="display:inline-block;padding:0 .14em;font-size:.7em;opacity:.85">&amp;</span>Arunav</div>
-      <div style="font:400 clamp(11px,1.3vw,13px) 'Cormorant Garamond',serif;letter-spacing:.3em;text-transform:uppercase;color:rgba(247,240,228,.8)">27 &amp; 28 January 2027</div>
-      <button type="button" id="open-invite" class="btn-open" style="margin-top:clamp(8px,1.6vh,16px);min-height:48px;padding:14px 30px;background:rgba(45,8,14,.4);border:1px solid rgba(247,240,228,.6);color:#F7F0E4;font:500 10px Karla,sans-serif;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;transition:background .25s ease, border-color .25s ease">Open</button>
+  <button type="button" class="music" id="music" hidden aria-pressed="false" aria-label="Play the music">
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+      <rect class="bar" x="5" y="8" width="3" height="10" rx="1.5" />
+      <rect class="bar" x="10.5" y="5" width="3" height="13" rx="1.5" />
+      <rect class="bar" x="16" y="10" width="3" height="8" rx="1.5" />
+    </svg>
+  </button>
+  <audio id="shloka" loop preload="none"></audio>
+
+  <div id="intro" role="dialog" aria-modal="true" aria-label="An invitation from the Sharma family">
+    <div class="env" id="env">
+      <div class="env-body"><div class="env-border"></div></div>
+      <div class="env-flap"></div>
+      <div class="env-top">
+        <div class="eyebrow">Seeking your auspicious presence for the shubh vivah of</div>
+      </div>
+      <button type="button" class="seal" id="open-invite" aria-label="Open your invitation">
+        <svg viewBox="0 0 148 148" aria-hidden="true">
+          <circle cx="74" cy="74" r="62" fill="none" stroke="#8C2C3E" stroke-width="1" opacity=".55" />
+          <path d="M46 112 V70 C46 54 58 44 68 40 C71 39 73 36 74 32 C75 36 77 39 80 40 C90 44 102 54 102 70 V112" fill="none" stroke="#8C2C3E" stroke-width="1.2" opacity=".8" />
+          <text x="74" y="92" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-style="italic" font-weight="500" font-size="40" fill="#5E1C2A">S<tspan font-size="22" dy="-2" fill="#8C2C3E"> &amp; </tspan><tspan dy="2">A</tspan></text>
+          <text x="74" y="110" text-anchor="middle" font-family="Karla, sans-serif" font-weight="600" font-size="7" letter-spacing="2.4" fill="#8C2C3E">MMXXVII</text>
+        </svg>
+      </button>
+      <div class="env-text">
+        <div class="names">Shambhavi<span class="amp">&amp;</span>Arunav</div>
+        <div class="date">27th &amp; 28th January 2027</div>
+        <div class="tap">Tap the seal</div>
+      </div>
     </div>
   </div>
 
+  <!-- ============ Hero ============ -->
   <section data-screen-label="Hero" style="position:relative;min-height:100svh;display:flex;align-items:flex-end;justify-content:center;background:#4A1522;overflow:hidden">
     <img src="assets/couple.jpg" alt="Shambhavi and Arunav" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 24%" />
     <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(40,10,16,.62) 0%, rgba(42,10,17,.42) 22%, rgba(44,11,18,.24) 40%, rgba(48,12,19,.74) 74%, rgba(42,10,16,.94) 100%)"></div>
     <div style="position:relative;z-index:2;width:min(640px,88%);padding:120px 0 58px;text-align:center;color:#FBF3E7">
-      <div style="display:flex;align-items:center;justify-content:center;gap:14px">
-        <div style="height:1px;width:38px;background:rgba(251,243,231,.45)"></div>
-        <div style="font:500 11px Karla,sans-serif;letter-spacing:.42em;text-transform:uppercase">Save the Date</div>
-        <div style="height:1px;width:38px;background:rgba(251,243,231,.45)"></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px">
+        <div style="height:1px;width:42px;background:rgba(251,243,231,.5)"></div>
+        <div style="font:600 clamp(12px,3vw,14px) Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;white-space:nowrap">Save the Date</div>
+        <div style="height:1px;width:42px;background:rgba(251,243,231,.5)"></div>
       </div>
       <h1 style="font:400 clamp(56px,16vw,104px) 'Pinyon Script',cursive;line-height:1.02;margin:20px 0 10px;font-weight:400;text-shadow:0 2px 30px rgba(30,6,12,.35)">Shambhavi<span style="display:block;font-size:.52em;margin:2px 0;opacity:.85">&amp;</span>Arunav</h1>
-      <div style="font:400 clamp(19px,5vw,26px) 'Cormorant Garamond',serif;letter-spacing:.22em;text-transform:uppercase;margin-top:14px">27 &amp; 28 January 2027</div>
-      <div style="margin-top:16px;font:400 10px Karla,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:rgba(251,243,231,.72);line-height:1.9">Evara Resort &amp; Spa<br />Jim Corbett · Uttarakhand</div>
-      <div style="margin-top:44px;font:500 9px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:rgba(251,243,231,.6)">Scroll</div>
+      <div style="font:500 clamp(21px,5.6vw,30px) 'Cormorant Garamond',serif;letter-spacing:.22em;text-transform:uppercase;margin-top:14px">27th &amp; 28th January 2027</div>
+      <div style="margin-top:18px;font:500 clamp(12px,2.9vw,13px) Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(251,243,231,.86);line-height:2">Evara Resort &amp; Spa<br />Jim Corbett · Uttarakhand</div>
+      <div style="margin-top:44px;font:600 11px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:rgba(251,243,231,.72)">Scroll</div>
       <div style="width:1px;height:34px;margin:12px auto 0;background:linear-gradient(180deg, rgba(251,243,231,.6), transparent)"></div>
     </div>
   </section>
 
+  <!-- ============ Invitation ============ -->
   <section data-screen-label="Invitation" style="background:#FBF6EE;padding:clamp(64px,13vw,104px) 26px;text-align:center">
-    <div style="max-width:560px;margin:0 auto">
-      <div style="font:600 10px Karla,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#A98B5D">Two days · One beginning</div>
-      <h2 style="font:300 clamp(32px,8vw,52px) 'Cormorant Garamond',serif;margin:18px 0 0;color:#3C2A24;line-height:1.15">We're getting married</h2>
-      <div style="width:44px;height:1px;background:#CDB68F;margin:26px auto"></div>
-      <p style="font:400 clamp(17px,4.4vw,20px)/1.7 'Cormorant Garamond',serif;color:#6B5F55;margin:0;text-wrap:pretty">With joyful hearts, we invite you to celebrate the beginning of our forever with us — two days of family, feasting and music in the foothills of Jim Corbett.</p>
+    <div style="max-width:580px;margin:0 auto">
+      <!-- Ganesh ji, drawn in a single weight of line. -->
+      <svg viewBox="0 0 64 64" role="img" aria-label="Shri Ganesh" style="width:clamp(54px,13vw,68px);height:auto;display:block;margin:0 auto 22px;color:#A98B5D" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M26.6 18.6 C27.2 12.4 29.8 9 32 6.6 C34.2 9 36.8 12.4 37.4 18.6" />
+        <circle cx="32" cy="4.6" r="1.7" fill="currentColor" stroke="none" />
+        <path d="M21.5 27.5 a10.5 10.5 0 0 1 21 0 v3.4 a10.5 10.5 0 0 1 -4.6 8.7" />
+        <path d="M21.6 25.6 c-6.6 -3 -12.1 .6 -12.1 6.4 c0 5.8 5.5 9.6 12.1 6.8" />
+        <path d="M42.4 25.6 c6.6 -3 12.1 .6 12.1 6.4 c0 5.8 -5.5 9.6 -12.1 6.8" />
+        <path d="M27 28.4 h3.4 M33.6 28.4 h3.4" />
+        <path d="M32 31.6 v7.6 c0 5.4 -3.8 8.8 -8.4 8.8 c-3.8 0 -6.2 -2.6 -6.2 -5.6 c0 -2.8 2.4 -4.6 5 -4" />
+        <path d="M26.6 37.2 l-2.6 3.4 M37.4 37.2 l2.6 3.4" />
+        <path d="M15 53 h34" opacity=".5" />
+      </svg>
+      <p style="font:400 clamp(16px,4.2vw,19px)/2.1 'Tiro Devanagari Sanskrit',serif;color:#5E1C2A;margin:0 auto;max-width:30ch;text-wrap:balance">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br />निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥</p>
+      <div style="margin-top:14px;font:italic 500 15px/1.9 'Cormorant Garamond',serif;letter-spacing:.04em;color:#9A7B45">Vakratuṇḍa Mahākāya · Sūryakoṭi Samaprabha</div>
+      <div style="width:44px;height:1px;background:#CDB68F;margin:30px auto"></div>
+      <p style="font:400 clamp(18px,4.6vw,21px)/1.75 'Cormorant Garamond',serif;color:#5E554C;margin:0;text-wrap:pretty">With joyful hearts, we invite you to celebrate the shubh vivah of our beloved daughter, <b style="font-weight:600;color:#3C2A24">Shambhavi Sharma</b>, with <b style="font-weight:600;color:#3C2A24">Arunav Saxena</b> (s/o Mrs. Sarita Saxena &amp; Mr. Sunil Kumar Saxena). Two days of family, feasting and music in the foothills of Jim Corbett.</p>
+      <div style="margin-top:30px;font:700 clamp(15px,3.6vw,17px) Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#5E1C2A">Sonia &amp; Tarun Sharma</div>
     </div>
   </section>
 
-  <section data-screen-label="Venue" style="background:#F2E9DB;padding:clamp(58px,12vw,92px) 26px;text-align:center">
-    <div style="max-width:520px;margin:0 auto">
-      <div style="font:600 10px Karla,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#A98B5D">The venue</div>
-      <img src="assets/evara-logo.jpeg" alt="Evara Spa and Resort" style="display:block;width:min(230px,62vw);height:auto;margin:26px auto 22px;mix-blend-mode:multiply" />
-      <h3 style="font:400 clamp(26px,6.5vw,36px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24;letter-spacing:.01em">Evara Resort &amp; Spa</h3>
-      <p style="font:400 16px/1.9 'Cormorant Garamond',serif;color:#6B5F55;margin:12px 0 18px">Village Bhalon, Patkote, Ramnagar<br />Jim Corbett, Uttarakhand 263159</p>
-      <a class="link-maps" href="https://www.google.com/maps/search/?api=1&amp;query=Evara%20Resort%20and%20Spa%20Jim%20Corbett%20Uttarakhand" target="_blank" rel="noopener" style="display:inline-block;border-bottom:1px solid rgba(94,28,42,.4);color:#5E1C2A;padding-bottom:3px;font:500 10px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase">Get directions on Google Maps</a>
-      <p style="font:400 16px/1.9 'Cormorant Garamond',serif;color:#8A7D71;margin:24px 0 0">Both days of celebration will unfold here.</p>
+  <!-- ============ Venue ============ -->
+  <section data-screen-label="Venue" style="position:relative;overflow:hidden;background:radial-gradient(90% 70% at 50% 0%, #FFF9EF 0%, rgba(255,249,239,0) 62%), linear-gradient(180deg, #F3E5CD 0%, #E9D7B8 100%);padding:clamp(58px,12vw,92px) 22px;text-align:center">
+    <div aria-hidden="true" style="position:absolute;left:-120px;top:-90px;z-index:0;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle, rgba(169,139,93,.26), rgba(169,139,93,0) 70%)"></div>
+    <div aria-hidden="true" style="position:absolute;right:-130px;bottom:-110px;z-index:0;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle, rgba(169,139,93,.26), rgba(169,139,93,0) 70%)"></div>
+    <!-- The details sit on their own ivory card, so nothing sinks into the wash
+         behind it. No z-index on the card: a stacking context would stop the
+         logo's multiply blend from reaching the card underneath. -->
+    <div style="position:relative;max-width:560px;margin:0 auto;background:#FFFDF8;border:1px solid #DEC9A3;box-shadow:0 22px 54px rgba(70,38,28,.16);padding:clamp(30px,7vw,48px) clamp(22px,6vw,44px)">
+      <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#9A7B45">The venue</div>
+      <img src="assets/evara-logo.jpeg" alt="Evara Spa and Resort" style="display:block;width:min(220px,58vw);height:auto;margin:24px auto 20px;mix-blend-mode:multiply" />
+      <h3 style="font:500 clamp(34px,8.6vw,52px) 'Cormorant Garamond',serif;margin:0;color:#5E1C2A;letter-spacing:.02em;line-height:1.1">Evara Resort &amp; Spa</h3>
+      <p style="font:500 clamp(17px,4.2vw,19px)/1.85 'Cormorant Garamond',serif;color:#4A4038;margin:16px 0 22px">Village Bhalon, Patkote, Ramnagar<br />Jim Corbett, Uttarakhand 263159</p>
+      <a class="link-maps" href="https://www.google.com/maps/search/?api=1&amp;query=Evara%20Resort%20and%20Spa%20Jim%20Corbett%20Uttarakhand" target="_blank" rel="noopener" style="display:inline-block;border-bottom:1px solid rgba(94,28,42,.5);color:#5E1C2A;padding-bottom:4px;font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase">Get directions on Google Maps</a>
+      <p style="font:italic 400 17px/1.9 'Cormorant Garamond',serif;color:#6B5F55;margin:24px 0 0">Both days of celebration will unfold here.</p>
     </div>
   </section>
 
+  <!-- ============ Countdown ============ -->
   <section data-screen-label="Countdown" style="position:relative;background:#5E1C2A;padding:clamp(64px,13vw,100px) 22px;text-align:center;overflow:hidden">
-    <img src="assets/twirl.jpg" onerror="this.style.display='none'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 55%;opacity:.16" />
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(94,28,42,.86), rgba(74,21,34,.92))"></div>
+    <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 0%, rgba(217,190,144,.18), rgba(217,190,144,0) 70%)"></div>
     <div style="position:relative;z-index:2;max-width:640px;margin:0 auto;color:#FBF3E7">
-      <div style="font:600 10px Karla,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#D9BE90">Until the celebrations begin</div>
+      <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#E6CFA3">Until the celebrations begin</div>
       <h2 style="font:300 clamp(28px,7vw,42px) 'Cormorant Garamond',serif;margin:16px 0 40px">The countdown begins</h2>
       <div style="display:flex;justify-content:center;gap:clamp(16px,6vw,44px)">
         <div>
           <div id="cd-days" style="font:300 clamp(38px,11vw,62px) 'Cormorant Garamond',serif;line-height:1">000</div>
-          <div style="font:500 9px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(251,243,231,.62);margin-top:8px">Days</div>
+          <div style="font:600 11px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:rgba(251,243,231,.78);margin-top:10px">Days</div>
         </div>
         <div style="width:1px;background:rgba(251,243,231,.18)"></div>
         <div>
           <div id="cd-hours" style="font:300 clamp(38px,11vw,62px) 'Cormorant Garamond',serif;line-height:1">00</div>
-          <div style="font:500 9px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(251,243,231,.62);margin-top:8px">Hours</div>
+          <div style="font:600 11px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:rgba(251,243,231,.78);margin-top:10px">Hours</div>
         </div>
         <div style="width:1px;background:rgba(251,243,231,.18)"></div>
         <div>
           <div id="cd-minutes" style="font:300 clamp(38px,11vw,62px) 'Cormorant Garamond',serif;line-height:1">00</div>
-          <div style="font:500 9px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(251,243,231,.62);margin-top:8px">Minutes</div>
+          <div style="font:600 11px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:rgba(251,243,231,.78);margin-top:10px">Minutes</div>
         </div>
         <div style="width:1px;background:rgba(251,243,231,.18)"></div>
         <div>
           <div id="cd-seconds" style="font:300 clamp(38px,11vw,62px) 'Cormorant Garamond',serif;line-height:1">00</div>
-          <div style="font:500 9px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(251,243,231,.62);margin-top:8px">Seconds</div>
+          <div style="font:600 11px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:rgba(251,243,231,.78);margin-top:10px">Seconds</div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ============ Events ============ -->
   <section data-screen-label="Events" style="background:#FBF6EE;padding:clamp(64px,13vw,104px) 26px">
     <div style="max-width:680px;margin:0 auto">
       <div style="text-align:center">
-        <div style="font:600 10px Karla,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#A98B5D">The celebrations</div>
+        <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#9A7B45">The celebrations</div>
         <h2 style="font:300 clamp(30px,7.5vw,48px) 'Cormorant Garamond',serif;margin:16px 0 0;color:#3C2A24">Join us for every moment</h2>
         <div style="width:44px;height:1px;background:#CDB68F;margin:26px auto 48px"></div>
       </div>
 
       <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
         <div style="height:1px;flex:1;background:#DFD1BE"></div>
-        <div style="font:600 10px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#A98B5D;white-space:nowrap">Day One · Wed 27 January</div>
+        <div style="font:700 12px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#9A7B45;white-space:nowrap">Day One · Wed 27 January</div>
         <div style="height:1px;flex:1;background:#DFD1BE"></div>
       </div>
       <div style="display:grid;gap:0">
-        <div style="display:grid;grid-template-columns:1fr;gap:6px;padding:24px 0;border-bottom:1px solid #EBE1D2">
-          <div style="font:500 10px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#8C2C3E">12:30 pm onwards</div>
-          <h3 style="font:400 clamp(23px,5.6vw,29px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Welcome Lunch</h3>
-          <p style="margin:0;font:400 16px/1.6 'Cormorant Garamond',serif;color:#7A6D62">Arrive, settle in and let the celebrations begin.</p>
+        <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0;border-bottom:1px solid #EBE1D2">
+          <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">12:00 pm</div>
+          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Welcome Lunch <span style="font:italic 400 .62em 'Cormorant Garamond',serif;color:#9A7B45">· settle in</span></h3>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">A long table, a warm welcome and the first meal together.</p>
         </div>
-        <div style="display:grid;grid-template-columns:1fr;gap:6px;padding:24px 0">
-          <div style="font:500 10px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#8C2C3E">7:00 pm onwards</div>
-          <h3 style="font:400 clamp(23px,5.6vw,29px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Engagement</h3>
-          <p style="margin:0;font:400 16px/1.6 'Cormorant Garamond',serif;color:#7A6D62">With cocktails and sangeet — an evening of music and dancing.</p>
+        <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0;border-bottom:1px solid #EBE1D2">
+          <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">2:00 pm</div>
+          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Carnival <span style="font:italic 400 .62em 'Cormorant Garamond',serif;color:#9A7B45">· games and mehendi</span></h3>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">An afternoon of games, mehendi and music under the winter sun.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0">
+          <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">7:00 pm</div>
+          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Engagement <span style="font:italic 400 .62em 'Cormorant Garamond',serif;color:#9A7B45">· the rings</span></h3>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">Cocktail dinner and sangeet, an evening of music and dancing.</p>
         </div>
       </div>
 
       <div style="display:flex;align-items:center;gap:16px;margin:40px 0 8px">
         <div style="height:1px;flex:1;background:#DFD1BE"></div>
-        <div style="font:600 10px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#A98B5D;white-space:nowrap">Day Two · Thu 28 January</div>
+        <div style="font:700 12px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#9A7B45;white-space:nowrap">Day Two · Thu 28 January</div>
         <div style="height:1px;flex:1;background:#DFD1BE"></div>
       </div>
       <div style="display:grid;gap:0">
-        <div style="display:grid;grid-template-columns:1fr;gap:6px;padding:24px 0;border-bottom:1px solid #EBE1D2">
-          <div style="font:500 10px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#8C2C3E">11:00 am onwards</div>
-          <h3 style="font:400 clamp(23px,5.6vw,29px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Wedding</h3>
-          <p style="margin:0;font:400 16px/1.6 'Cormorant Garamond',serif;color:#7A6D62">The moment we have been waiting for.</p>
+        <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0;border-bottom:1px solid #EBE1D2">
+          <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">11:00 am</div>
+          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Vivah Sanskar <span style="font:italic 400 .62em 'Cormorant Garamond',serif;color:#9A7B45">· the moment itself</span></h3>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">Baraat, varmala and seven rounds of the sacred fire.</p>
         </div>
-        <div style="display:grid;grid-template-columns:1fr;gap:6px;padding:24px 0">
-          <div style="font:500 10px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#8C2C3E">8:00 pm onwards</div>
-          <h3 style="font:400 clamp(23px,5.6vw,29px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Reception</h3>
-          <p style="margin:0;font:400 16px/1.6 'Cormorant Garamond',serif;color:#7A6D62">Dinner, drinks and one last celebration together.</p>
+        <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0;border-bottom:1px solid #EBE1D2">
+          <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">1:00 pm</div>
+          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Lunch <span style="font:italic 400 .62em 'Cormorant Garamond',serif;color:#9A7B45">· a well earned pause</span></h3>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">Something warm, something sweet and a little winter sunshine.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0">
+          <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">8:00 pm</div>
+          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Reception <span style="font:italic 400 .62em 'Cormorant Garamond',serif;color:#9A7B45">· one last dance</span></h3>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">Dinner, music and goodbyes that take the whole evening.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <div style="position:relative;height:min(46vh,340px);overflow:hidden;background:#E8DFCF">
-    <img src="assets/vines.jpg" onerror="this.style.display='none'" alt="Shambhavi and Arunav" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%" />
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(251,246,238,.18), rgba(242,233,219,.12) 60%, rgba(238,228,213,.9))"></div>
-  </div>
-
+  <!-- ============ RSVP ============ -->
   <section data-screen-label="RSVP" id="rsvp" style="background:#EEE4D5;padding:clamp(56px,11vw,90px) 20px clamp(72px,14vw,110px)">
-    <div style="max-width:600px;margin:0 auto;background:#FBF6EE;padding:clamp(28px,7vw,54px);box-shadow:0 24px 60px rgba(70,38,28,.10)">
+    <div style="max-width:620px;margin:0 auto;background:#FBF6EE;padding:clamp(28px,7vw,54px);box-shadow:0 24px 60px rgba(70,38,28,.10)">
       <div style="text-align:center">
-        <div style="font:600 10px Karla,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#A98B5D">Kindly reply</div>
-        <h2 style="font:300 clamp(34px,9vw,52px) 'Cormorant Garamond',serif;margin:14px 0 8px;color:#3C2A24;letter-spacing:.02em">RSVP</h2>
-        <p style="font:400 17px/1.6 'Cormorant Garamond',serif;color:#7A6D62;margin:0 0 34px">We would be honoured to have you celebrate with us.</p>
+        <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#9A7B45">Kindly reply</div>
+        <h2 style="font:300 clamp(34px,9vw,52px) 'Cormorant Garamond',serif;margin:14px 0 10px;color:#3C2A24;letter-spacing:.02em">RSVP</h2>
+        <p style="font:400 18px/1.65 'Cormorant Garamond',serif;color:#5E554C;margin:0 0 34px">One reply per family, please. Your arrival details help us plan your stay and pickup.</p>
       </div>
+
+      <p id="rsvp-prev" hidden style="font:500 15px Karla,sans-serif;color:#9A7B45;margin:-22px 0 28px;text-align:center"></p>
 
       <div id="rsvp-thanks" hidden style="text-align:center;padding:18px 0 8px">
-        <div style="font:400 clamp(30px,8vw,44px) 'Pinyon Script',cursive;color:#5E1C2A;line-height:1.2">Thank you</div>
-        <p style="font:400 17px/1.7 'Cormorant Garamond',serif;color:#7A6D62;margin:14px auto 26px;max-width:340px">Your reply is with us. We cannot wait to celebrate with you in Jim Corbett.</p>
-        <button type="button" id="rsvp-reset" class="btn-reset" style="border:1px solid #5E1C2A;background:transparent;color:#5E1C2A;padding:12px 24px;font:500 10px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;cursor:pointer">Send another reply</button>
+        <div style="font:400 clamp(30px,8vw,44px) 'Pinyon Script',cursive;color:#5E1C2A;line-height:1.2">Dhanyavaad</div>
+        <p style="font:400 18px/1.7 'Cormorant Garamond',serif;color:#5E554C;margin:14px auto 0;max-width:340px">Your reply is with us. We cannot wait to welcome you in Jim Corbett.</p>
+        <ul class="ty-summary" id="ty-summary"></ul>
+        <button type="button" id="rsvp-reset" class="btn-reset" style="margin-top:26px;border:1px solid #5E1C2A;background:transparent;color:#5E1C2A;padding:13px 26px;font:600 12px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;cursor:pointer">Send an update</button>
       </div>
 
-      <form id="rsvp-form" style="display:grid;gap:18px">
-        <div style="display:grid;gap:8px">
-          <label for="rsvp-name" style="font:500 10px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#6B5F55">Name</label>
-          <input class="fld" id="rsvp-name" name="name" required placeholder="Your full name" autocomplete="name" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px 14px;font:400 16px Karla,sans-serif;outline:none;border-radius:0" />
-        </div>
-        <div style="display:grid;gap:8px">
-          <label for="rsvp-phone" style="font:500 10px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#6B5F55">Phone number</label>
-          <input class="fld" id="rsvp-phone" name="phone" type="tel" required placeholder="+91" autocomplete="tel" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px 14px;font:400 16px Karla,sans-serif;outline:none;border-radius:0" />
-        </div>
-        <div style="display:grid;gap:8px">
-          <label for="rsvp-email" style="font:500 10px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#6B5F55">Email ID <span style="letter-spacing:.06em;text-transform:none;color:#A79C90">(optional)</span></label>
-          <input class="fld" id="rsvp-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px 14px;font:400 16px Karla,sans-serif;outline:none;border-radius:0" />
+      <div id="rsvp-locked" hidden style="text-align:center;padding:12px 0 4px">
+        <p style="font:400 18px/1.7 'Cormorant Garamond',serif;color:#5E554C;margin:0 auto;max-width:340px">To reply, please open the RSVP link from your invitation message. You can also call or message us below.</p>
+      </div>
+
+      <!-- novalidate: every message is shown inline under its own field instead
+           of in a native bubble, so each check reads the same way. -->
+      <form id="rsvp-form" novalidate style="display:grid;gap:22px">
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off" /></label></div>
+
+        <div style="display:grid;gap:9px">
+          <label for="rsvp-name" style="font:600 12px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E554C">Name</label>
+          <input class="fld" id="rsvp-name" name="name" required placeholder="Your full name" autocomplete="name" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0" />
         </div>
 
-        <div style="display:grid;gap:10px">
-          <label style="font:500 10px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#6B5F55">Which functions will you attend?</label>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px">
-            <label class="fn-chip" style="display:flex;align-items:center;gap:11px;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px;min-height:48px;font:400 15px Karla,sans-serif;color:#3C2A24;cursor:pointer">
-              <input type="checkbox" name="functions" value="Welcome Lunch" style="width:17px;height:17px;accent-color:#5E1C2A;margin:0" /> Welcome Lunch
+        <div style="display:grid;gap:9px">
+          <label for="rsvp-phone" style="font:600 12px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E554C">Phone number</label>
+          <input class="fld" id="rsvp-phone" name="phone" type="tel" required placeholder="+91" autocomplete="tel" inputmode="tel" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0" />
+        </div>
+
+        <div style="display:grid;gap:11px">
+          <label style="font:600 12px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E554C">Kindly let us know your arrival program as per the wedding events</label>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px">
+            <label class="fn-chip" style="display:flex;align-items:center;gap:12px;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px;min-height:52px;font:400 16px Karla,sans-serif;color:#3C2A24;cursor:pointer">
+              <input type="checkbox" name="days" value="Day 1 - Wed 27 Jan" style="width:18px;height:18px;accent-color:#5E1C2A;margin:0" /> Day 1 · Wed 27 Jan
             </label>
-            <label class="fn-chip" style="display:flex;align-items:center;gap:11px;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px;min-height:48px;font:400 15px Karla,sans-serif;color:#3C2A24;cursor:pointer">
-              <input type="checkbox" name="functions" value="Engagement" style="width:17px;height:17px;accent-color:#5E1C2A;margin:0" /> Engagement
-            </label>
-            <label class="fn-chip" style="display:flex;align-items:center;gap:11px;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px;min-height:48px;font:400 15px Karla,sans-serif;color:#3C2A24;cursor:pointer">
-              <input type="checkbox" name="functions" value="Wedding" style="width:17px;height:17px;accent-color:#5E1C2A;margin:0" /> Wedding
-            </label>
-            <label class="fn-chip" style="display:flex;align-items:center;gap:11px;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px;min-height:48px;font:400 15px Karla,sans-serif;color:#3C2A24;cursor:pointer">
-              <input type="checkbox" name="functions" value="Reception" style="width:17px;height:17px;accent-color:#5E1C2A;margin:0" /> Reception
+            <label class="fn-chip" style="display:flex;align-items:center;gap:12px;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px;min-height:52px;font:400 16px Karla,sans-serif;color:#3C2A24;cursor:pointer">
+              <input type="checkbox" name="days" value="Day 2 - Thu 28 Jan" style="width:18px;height:18px;accent-color:#5E1C2A;margin:0" /> Day 2 · Thu 28 Jan
             </label>
           </div>
         </div>
 
-        <div style="display:grid;gap:8px">
-          <label for="rsvp-guests" style="font:500 10px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#6B5F55">Number of guests attending</label>
-          <input class="fld" id="rsvp-guests" name="guests" type="number" min="1" max="30" value="1" required style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px 14px;font:400 16px Karla,sans-serif;outline:none;border-radius:0" />
-        </div>
-        <div style="display:grid;gap:8px">
-          <label for="rsvp-requests" style="font:500 10px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#6B5F55">Special requests <span style="letter-spacing:.06em;text-transform:none;color:#A79C90">(optional)</span></label>
-          <textarea class="fld" id="rsvp-requests" name="requests" placeholder="Dietary needs, travel, anything we should know" style="width:100%;min-height:88px;resize:vertical;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px;font:400 16px/1.5 Karla,sans-serif;outline:none;border-radius:0"></textarea>
-        </div>
-        <div style="display:grid;gap:8px">
-          <label for="rsvp-message" style="font:500 10px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#6B5F55">Message for us <span style="letter-spacing:.06em;text-transform:none;color:#A79C90">(optional)</span></label>
-          <textarea class="fld" id="rsvp-message" name="message" placeholder="Leave us a note" style="width:100%;min-height:88px;resize:vertical;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px;font:400 16px/1.5 Karla,sans-serif;outline:none;border-radius:0"></textarea>
+        <div style="display:grid;gap:9px">
+          <label for="rsvp-guests" style="font:600 12px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E554C">How many of you will we have the joy of hosting, counting yourself?</label>
+          <select class="fld" id="rsvp-guests" name="guests" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0"></select>
         </div>
 
-        <div id="rsvp-error" hidden role="alert" style="font:400 14px Karla,sans-serif;color:#8C2C3E"></div>
+        <div style="display:grid;gap:11px">
+          <label style="font:600 12px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E554C">Mode of transport &amp; arrival</label>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px">
+            <label class="fn-chip" style="display:flex;align-items:center;gap:12px;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px;min-height:52px;font:400 16px Karla,sans-serif;color:#3C2A24;cursor:pointer">
+              <input type="radio" name="travelBy" value="Road" style="width:18px;height:18px;accent-color:#5E1C2A;margin:0" /> By road
+            </label>
+            <label class="fn-chip" style="display:flex;align-items:center;gap:12px;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px;min-height:52px;font:400 16px Karla,sans-serif;color:#3C2A24;cursor:pointer">
+              <input type="radio" name="travelBy" value="Train" style="width:18px;height:18px;accent-color:#5E1C2A;margin:0" /> By train
+            </label>
+            <label class="fn-chip" style="display:flex;align-items:center;gap:12px;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px;min-height:52px;font:400 16px Karla,sans-serif;color:#3C2A24;cursor:pointer">
+              <input type="radio" name="travelBy" value="Flight" style="width:18px;height:18px;accent-color:#5E1C2A;margin:0" /> By flight
+            </label>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:2px">
+            <div style="display:grid;gap:9px">
+              <label for="rsvp-arrive-date" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">Arrival date</label>
+              <select class="fld" id="rsvp-arrive-date" name="arriveDate" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0">
+                <option>Tue, 26 Jan</option>
+                <option selected>Wed, 27 Jan</option>
+                <option>Thu, 28 Jan</option>
+              </select>
+            </div>
+            <div style="display:grid;gap:9px">
+              <label for="rsvp-arrive-time" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">Arrival time</label>
+              <input class="fld" id="rsvp-arrive-time" name="arriveTime" type="time" step="900" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0" />
+            </div>
+          </div>
+        </div>
 
-        <button type="submit" id="rsvp-submit" class="btn-submit" style="margin-top:4px;width:100%;border:0;background:#5E1C2A;color:#FBF3E7;padding:17px;font:500 11px Karla,sans-serif;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;transition:background .25s ease">Send RSVP</button>
-        <div style="text-align:center;font:400 12px Karla,sans-serif;color:#9A8E82">Name, phone and number of guests are required.</div>
+        <div style="display:grid;gap:11px">
+          <label style="font:600 12px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E554C">Special assistance required <span style="letter-spacing:.04em;text-transform:none;color:#A79C90">(if any)</span></label>
+
+          <label class="fn-chip" style="display:flex;align-items:center;gap:12px;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px;min-height:52px;font:400 16px Karla,sans-serif;color:#3C2A24;cursor:pointer">
+            <input type="checkbox" name="assistance" value="Accommodation for driver" style="width:18px;height:18px;accent-color:#5E1C2A;margin:0" /> Accommodation for driver
+          </label>
+
+          <label class="fn-chip" style="display:flex;align-items:center;gap:12px;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px;min-height:52px;font:400 16px Karla,sans-serif;color:#3C2A24;cursor:pointer">
+            <input type="checkbox" name="assistance" value="Pick-up required at railway station" id="asst-pickup" style="width:18px;height:18px;accent-color:#5E1C2A;margin:0" /> Pick-up required at railway station
+          </label>
+          <div class="sub-field" id="pickup-fields" hidden>
+            <div style="display:grid;gap:9px">
+              <label for="rsvp-station" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">Which station</label>
+              <input class="fld" id="rsvp-station" name="pickupStation" placeholder="Kathgodam" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0" />
+            </div>
+            <div style="display:grid;gap:9px">
+              <label for="rsvp-train" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">Train name or number</label>
+              <input class="fld" id="rsvp-train" name="pickupTrain" placeholder="12040 Shatabdi" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0" />
+            </div>
+          </div>
+
+          <label class="fn-chip" style="display:flex;align-items:center;gap:12px;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px;min-height:52px;font:400 16px Karla,sans-serif;color:#3C2A24;cursor:pointer">
+            <input type="checkbox" name="assistance" value="Special medical care" id="asst-medical" style="width:18px;height:18px;accent-color:#5E1C2A;margin:0" /> Special medical care
+          </label>
+          <div class="sub-field" id="medical-fields" hidden>
+            <div style="display:grid;gap:9px">
+              <label for="rsvp-medical" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">What should we arrange</label>
+              <textarea class="fld" id="rsvp-medical" name="medicalNote" placeholder="Anything we should keep ready, or know in advance" style="width:100%;min-height:92px;resize:vertical;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px/1.5 Karla,sans-serif;outline:none;border-radius:0"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;gap:12px">
+          <label style="font:600 12px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E554C">Identity proof for each guest <span style="letter-spacing:.04em;text-transform:none;color:#A79C90">(optional)</span></label>
+          <p style="margin:0;font:400 16px/1.6 Karla,sans-serif;color:#6B5F55">Aadhaar, driving licence or passport, as a photo or PDF up to 5 MB. One per guest for hotel check-in, kept in a private folder only our family can open. Your reply reaches us either way.</p>
+          <div id="guest-ids" style="display:grid;gap:12px"></div>
+        </div>
+
+        <div id="rsvp-error" hidden role="alert" style="font:500 15px Karla,sans-serif;color:#8C2C3E"></div>
+
+        <button type="submit" id="rsvp-submit" class="btn-submit" style="margin-top:4px;width:100%;border:0;background:#5E1C2A;color:#FBF3E7;padding:18px;font:600 13px Karla,sans-serif;letter-spacing:.26em;text-transform:uppercase;cursor:pointer;transition:background .25s ease">Send RSVP</button>
       </form>
     </div>
   </section>
 
-  <footer data-screen-label="Footer" style="position:relative;background:#4A1522;color:#FBF3E7;text-align:center;overflow:hidden">
-    <img src="assets/venue.jpg" onerror="this.style.display='none'" alt="Evara Resort &amp; Spa" style="position:absolute;left:0;top:0;width:100%;height:clamp(320px,58vh,560px);object-fit:cover;object-position:50% 45%" />
-    <div aria-hidden="true" style="position:absolute;left:0;top:0;right:0;height:clamp(320px,58vh,560px);background:linear-gradient(180deg, rgba(74,21,34,.34) 0%, rgba(74,21,34,.48) 34%, rgba(74,21,34,.78) 62%, rgba(74,21,34,.96) 84%, #4A1522 100%)"></div>
-    <div style="position:relative;z-index:2;max-width:560px;margin:0 auto;padding:clamp(300px,54vh,520px) 26px clamp(56px,9vw,80px)">
-      <div style="font:400 clamp(34px,9vw,54px) 'Pinyon Script',cursive;line-height:1.25">eagerly awaiting your presence</div>
-      <div style="width:44px;height:1px;background:rgba(217,190,144,.5);margin:34px auto"></div>
-      <div style="font:400 17px 'Cormorant Garamond',serif;letter-spacing:.16em;color:rgba(251,243,231,.78)">With lots of love,</div>
-      <div style="font:400 clamp(30px,8vw,44px) 'Pinyon Script',cursive;margin:10px 0 0">Shambhavi &amp; Arunav</div>
+  <!-- ============ Gallery ============ -->
+  <section data-screen-label="Gallery" id="gallery" style="background:#F2E9DB;padding:clamp(60px,12vw,96px) 26px">
+    <div style="max-width:960px;margin:0 auto">
+      <div style="text-align:center">
+        <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#9A7B45">A few favourites</div>
+        <h2 style="font:300 clamp(30px,7.5vw,48px) 'Cormorant Garamond',serif;margin:16px 0 0;color:#3C2A24">Moments</h2>
+        <div style="width:44px;height:1px;background:#CDB68F;margin:26px auto 44px"></div>
+      </div>
+      <div class="gal" id="gal"></div>
+    </div>
+  </section>
 
-      <div style="display:grid;gap:14px;margin-top:44px;justify-content:center">
-        <div style="font:500 9px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:rgba(217,190,144,.9)">For any help, reach us</div>
-        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px 34px;font:400 17px 'Cormorant Garamond',serif;color:rgba(251,243,231,.9)">
-          <div>Shambhavi · +91 00000 00000</div>
-          <div>Arunav · +91 00000 00000</div>
-        </div>
+  <!-- ============ Footer ============ -->
+  <footer data-screen-label="Footer" style="position:relative;background:#4A1522;color:#FBF3E7;text-align:center;overflow:hidden;padding:clamp(66px,13vw,104px) 26px clamp(56px,9vw,80px)">
+    <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 0%, rgba(217,190,144,.16), rgba(217,190,144,0) 70%)"></div>
+    <div style="position:relative;z-index:2;max-width:620px;margin:0 auto">
+      <div style="font:400 min(7.2vw,48px) 'Pinyon Script',cursive;line-height:1.3;white-space:nowrap">eagerly awaiting your presence</div>
+      <div style="width:44px;height:1px;background:rgba(217,190,144,.5);margin:34px auto"></div>
+      <div style="font:500 18px 'Cormorant Garamond',serif;letter-spacing:.16em;color:rgba(251,243,231,.86)">With lots of love,</div>
+      <div style="font:400 clamp(32px,8.4vw,46px) 'Pinyon Script',cursive;margin:10px 0 0">Sharma family</div>
+
+      <div style="display:grid;gap:16px;margin-top:52px;justify-content:center">
+        <div style="font:700 12px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#E6CFA3">For any assistance please contact</div>
+        <div id="contact-list" style="display:grid;gap:12px;min-width:min(360px,84vw)"></div>
       </div>
 
-      <div style="margin-top:52px;font:500 9px Karla,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:rgba(251,243,231,.42)">27 &amp; 28 January 2027 · Evara Resort &amp; Spa · Jim Corbett</div>
+      <div style="margin-top:52px;font:600 11px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(251,243,231,.6)">27 &amp; 28 January 2027 · Evara Resort &amp; Spa · Jim Corbett</div>
     </div>
   </footer>
 </div>
@@ -280,55 +515,165 @@
   "use strict";
 
   // ---- Config -------------------------------------------------------------
-  // Countdown target: celebrations begin, 27 Jan 2027 12:30 PM IST.
-  var TARGET = new Date("2027-01-27T12:30:00+05:30").getTime();
+  // Countdown target: celebrations begin, 27 Jan 2027 12:00 PM IST.
+  var TARGET = new Date("2027-01-27T12:00:00+05:30").getTime();
 
-  // Google Form that collects RSVPs. `id` is the long token in the form's
-  // share link: .../forms/d/e/<id>/viewform. Each value below is the
-  // `entry.NNNNNN` id of the matching question — README.md explains how to
-  // read them off the form. Leave `id` empty and replies stay in the guest's
-  // own browser and go nowhere else.
-  var GOOGLE_FORM = {
-    id: "1FAIpQLSewM_dhebvTa_yj5_W1KRt9gX3bUjafmIamG2t1-gl1lzRrcg",
-    fields: {
-      name:          "entry.1224194294",
-      phone:         "entry.883360929",
-      email:         "entry.857968569",
-      // "Functions attending" is a Short answer question, so it takes the
-      // joined string. If it is ever switched to Checkboxes, move the id onto
-      // `functions` below and the sender will repeat it once per choice.
-      functionsText: "entry.771900964",
-      functions:     "",
-      guests:        "entry.1672330680",
-      requests:      "entry.355334609",
-      message:       "entry.1674024418"
+  // Music for the opening. Either a file in assets/ ("assets/shloka.mp3") or a
+  // YouTube link or id, which plays through a hidden player. Left empty the
+  // page stays silent and the mute button never appears. Browsers block sound
+  // until a tap, so the first note follows the tap on the seal.
+  var AUDIO_SRC = "https://www.youtube.com/watch?v=uJrRbYEaMVM";
+
+  // The gallery. Drop photographs into assets/gallery/ and list the file names
+  // here, for example ["01.jpg", "02.jpg"]. While it is empty, empty frames
+  // hold the section's shape.
+  var GALLERY = ["01.jpg", "02.jpg", "03.jpg", "04.jpg"];
+  var GALLERY_PLACEHOLDERS = 6;
+
+  // Who to call. Names and roles only: the phone numbers live in the Apps
+  // Script's Script Properties (CONTACTS_BRIDE) and are served only to
+  // visitors holding a valid invite key, so they are never in this repo.
+  var CONTACTS = [
+    { name: "Tarun Sharma", role: "Father", phone: "" },
+    { name: "Sonia Sharma", role: "Mother", phone: "" },
+    { name: "Vedika", role: "RSVP co-ordinator", phone: "" }
+  ];
+
+  // The shared RSVP backend (apps-script/Code.gs in the arunav-rsvp-invitation
+  // repo, bound to the RSVP Sheet). This page posts kind "rsvp-bride", which
+  // the script writes to its own tab. The endpoint is public by design; the
+  // invite key below is what it checks before writing anything.
+  var RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbzT3MY-dKOSyeDIjQYagQneUvLXE8ll748rphP5smxAO8LdLqg8IsRiVV9NG9fKwXGy/exec";
+
+  // The invite link carries a key (?k=...). The backend refuses any request
+  // without it, so only people who received the invitation can reply. The key
+  // is kept in this browser and removed from the address bar.
+  var INVITE_KEY = (function () {
+    var KEY_STORE = "std-invite-key";
+    var fromUrl = new URLSearchParams(location.search).get("k");
+    if (fromUrl && /^[A-Za-z0-9_-]{16,64}$/.test(fromUrl)) {
+      try { localStorage.setItem(KEY_STORE, fromUrl); } catch (e) {}
+      try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
+      return fromUrl;
     }
-  };
+    try { return localStorage.getItem(KEY_STORE) || ""; } catch (e) { return ""; }
+  })();
 
-  // Optional extra endpoint accepting a JSON POST (Formspree, Apps Script...).
-  // Runs alongside the Google Form rather than instead of it.
-  var RSVP_ENDPOINT = "";
+  // Values the backend checks against fixed lists. Keep them ASCII: a middle
+  // dot does not survive the trip into Apps Script, so the labels carry the
+  // typography and the values stay plain.
+  var DAYS = ["Day 1 - Wed 27 Jan", "Day 2 - Thu 28 Jan"];
+  var MODES = ["Road", "Train", "Flight"];
+  var ARRIVE_DATES = ["Tue, 26 Jan", "Wed, 27 Jan", "Thu, 28 Jan"];
+  var ASSISTANCE = ["Accommodation for driver", "Pick-up required at railway station", "Special medical care"];
+  var ID_TYPES = ["Aadhaar", "Driving licence", "Passport"];
+  var OK_TYPES = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif", "application/pdf"];
+  var MAX_FILE = 5 * 1024 * 1024;
+  var MAX_RAW_IMAGE = 25 * 1024 * 1024;
+  var MAX_GUESTS = 10;
 
-  var STORE_KEY = "sa-wedding-rsvps";
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var STORE_KEY = "std-wedding-rsvps";
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
 
   // ---- Intro envelope -----------------------------------------------------
   var intro = document.getElementById("intro");
   var openBtn = document.getElementById("open-invite");
 
-  function lock(on) {
-    document.body.style.overflow = on ? "hidden" : "";
-  }
-
+  function lock(on) { document.body.style.overflow = on ? "hidden" : ""; }
   lock(true);
 
+  var opened = false;
   function openInvite() {
+    if (opened) return;          // flap, envelope and keyboard all land here
+    opened = true;
     lock(false);
     window.scrollTo(0, 0);
     intro.classList.add("is-open");
-    setTimeout(function () { intro.hidden = true; }, 1100);
+    // Matches the CSS: flap 1s, then the screen lifts and fades out by 1.5s.
+    setTimeout(function () { intro.hidden = true; }, 1700);
+    startMusic();   // the tap that opens the invitation is the gesture browsers want
   }
 
   openBtn.addEventListener("click", openInvite);
+  document.getElementById("env").addEventListener("click", openInvite);
+  document.addEventListener("keydown", function (e) {
+    if (!opened && !intro.hidden && (e.key === "Enter" || e.key === " " || e.key === "Escape")) {
+      e.preventDefault();
+      openInvite();
+    }
+  });
+  try { openBtn.focus({ preventScroll: true }); } catch (e) {}
+
+  // ---- Music --------------------------------------------------------------
+  // Starts as the invitation opens, with a mute button that stays on screen.
+  // A file plays through <audio>; a YouTube link plays through a hidden iframe
+  // driven by its postMessage API.
+  var startMusic = function () {};
+  (function () {
+    var btn = document.getElementById("music");
+    var audio = document.getElementById("shloka");
+    if (!AUDIO_SRC) return;
+
+    var ytId = (function (src) {
+      var m = String(src).match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+      if (m) return m[1];
+      return /^[A-Za-z0-9_-]{11}$/.test(src) ? src : "";
+    })(AUDIO_SRC);
+
+    var playing = false;
+    var yt = null;
+
+    function paint(on) {
+      playing = on;
+      btn.classList.toggle("playing", on);
+      btn.setAttribute("aria-pressed", String(on));
+      btn.setAttribute("aria-label", on ? "Mute the music" : "Play the music");
+    }
+
+    function ytCmd(func) {
+      if (!yt || !yt.contentWindow) return;
+      yt.contentWindow.postMessage(JSON.stringify({ event: "command", func: func, args: [] }), "*");
+    }
+
+    if (ytId) {
+      startMusic = function () {
+        if (yt) { ytCmd("playVideo"); paint(true); return; }
+        yt = document.createElement("iframe");
+        yt.id = "yt-host";
+        yt.allow = "autoplay";
+        yt.title = "Music";
+        yt.src = "https://www.youtube-nocookie.com/embed/" + ytId +
+          "?autoplay=1&loop=1&playlist=" + ytId + "&controls=0&playsinline=1&enablejsapi=1";
+        document.body.appendChild(yt);
+        paint(true);
+      };
+      btn.addEventListener("click", function () {
+        if (!yt) { startMusic(); return; }
+        if (playing) { ytCmd("pauseVideo"); paint(false); }
+        else { ytCmd("playVideo"); paint(true); }
+      });
+    } else {
+      audio.src = AUDIO_SRC;
+      audio.volume = 0.5;
+      startMusic = function () {
+        audio.play().then(function () { paint(true); }).catch(function () { paint(false); });
+      };
+      btn.addEventListener("click", function () {
+        if (audio.paused) startMusic();
+        else { audio.pause(); paint(false); }
+      });
+      audio.addEventListener("pause", function () { paint(false); });
+      audio.addEventListener("play", function () { paint(true); });
+    }
+
+    btn.hidden = false;
+  })();
 
   // ---- Countdown ----------------------------------------------------------
   var els = {
@@ -351,109 +696,451 @@
   tick();
   setInterval(tick, 1000);
 
+  // ---- Gallery ------------------------------------------------------------
+  (function () {
+    var host = document.getElementById("gal");
+    var frame = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.2"/><path d="M8.4 6l1.1-2h5l1.1 2"/></svg>';
+    if (GALLERY.length) {
+      host.innerHTML = GALLERY.map(function (file, i) {
+        return '<figure><img src="assets/gallery/' + esc(file) + '" alt="Shambhavi and Arunav, photograph ' + (i + 1) + '" loading="lazy" /></figure>';
+      }).join("");
+    } else {
+      var cells = [];
+      for (var i = 0; i < GALLERY_PLACEHOLDERS; i++) {
+        cells.push('<figure><div class="empty">' + frame + '</div></figure>');
+      }
+      host.innerHTML = cells.join("");
+    }
+  })();
+
+  // ---- Contacts -----------------------------------------------------------
+  // Names and roles are in the page; numbers arrive from the backend, and only
+  // for visitors who came through the invite link.
+  var renderContacts;
+  (function () {
+    var host = document.getElementById("contact-list");
+    var phoneIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>';
+    var waIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.4L3 21Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.3-1.8-1-1 .8a4 4 0 0 1-2.2-2.2l.8-1-1-1.8L9 9.5Z"/></svg>';
+
+    renderContacts = function (list, note) {
+      host.innerHTML = list.map(function (p) {
+        var digits = (p.phone || "").replace(/[^\d+]/g, "");
+        var acts = digits
+          ? '<div style="display:flex;gap:8px;flex:none">' +
+            '<a class="ic" href="tel:' + esc(digits) + '" aria-label="Call ' + esc(p.name) + '">' + phoneIcon + '</a>' +
+            '<a class="ic" href="https://wa.me/' + esc(digits.replace(/^\+/, "")) + '" target="_blank" rel="noopener" aria-label="WhatsApp ' + esc(p.name) + '">' + waIcon + '</a></div>'
+          : "";
+        return '<div style="display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid rgba(251,243,231,.26);padding:15px 17px;text-align:left">' +
+          '<div><div style="font:500 21px \'Cormorant Garamond\',serif;color:#FBF3E7">' + esc(p.name) + '</div>' +
+          '<div style="font:600 11px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E6CFA3;margin-top:4px">' + esc(p.role) + '</div>' +
+          (p.phone ? '<div style="font:400 16px Karla,sans-serif;color:rgba(251,243,231,.9);margin-top:6px">' + esc(p.phone) + '</div>' : "") +
+          '</div>' + acts + '</div>';
+      }).join("") + (note ? '<p style="font:400 14px Karla,sans-serif;color:rgba(251,243,231,.6);margin:2px 0 0">' + esc(note) + '</p>' : "");
+    };
+    renderContacts(CONTACTS, INVITE_KEY ? "" : "Phone numbers appear when you open the link from your invitation.");
+  })();
+
   // ---- RSVP ---------------------------------------------------------------
   var form = document.getElementById("rsvp-form");
   var thanks = document.getElementById("rsvp-thanks");
   var errorBox = document.getElementById("rsvp-error");
   var submitBtn = document.getElementById("rsvp-submit");
   var resetBtn = document.getElementById("rsvp-reset");
+  var nameInput = document.getElementById("rsvp-name");
+  var phoneInput = document.getElementById("rsvp-phone");
+  var guestSel = document.getElementById("rsvp-guests");
+  var idsHost = document.getElementById("guest-ids");
+  var pickupBox = document.getElementById("asst-pickup");
+  var pickupFields = document.getElementById("pickup-fields");
+  var medicalBox = document.getElementById("asst-medical");
+  var medicalFields = document.getElementById("medical-fields");
+
+  for (var gi = 1; gi <= MAX_GUESTS; gi++) {
+    guestSel.add(new Option(gi + (gi === 1 ? " guest" : " guests"), gi));
+  }
+
+  var uploadIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>';
+
+  // One card per guest, kept in step with the count. Everything in a card is
+  // optional: a reply with no IDs at all still reaches us.
+  function guestRow(i) {
+    var row = document.createElement("div");
+    row.className = "guest-card";
+    var lbl = "font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71";
+    var fld = "width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0";
+    row.innerHTML =
+      '<div class="g-title">Guest ' + (i + 1) + (i === 0 ? ' <span style="font:400 13px Karla,sans-serif;letter-spacing:.02em;text-transform:none;color:#A79C90">(you)</span>' : '') + '</div>' +
+      '<div style="display:grid;gap:9px"><label style="' + lbl + '" for="gid-name-' + i + '">Full name as on ID</label>' +
+      '<input class="fld" id="gid-name-' + i + '" data-role="g-name" autocomplete="off" style="' + fld + '" /></div>' +
+      '<div style="display:grid;gap:9px"><label style="' + lbl + '" for="gid-type-' + i + '">ID type</label>' +
+      '<select class="fld" id="gid-type-' + i + '" data-role="g-type" style="' + fld + '"><option value="">Select</option>' +
+      ID_TYPES.map(function (t) { return "<option>" + t + "</option>"; }).join("") + '</select></div>' +
+      '<div style="display:grid;gap:9px"><label style="' + lbl + '" for="gid-file-' + i + '">ID proof</label>' +
+      '<label class="file-drop">' + uploadIcon + '<span class="fd-text">Choose photo or PDF</span>' +
+      '<input type="file" id="gid-file-' + i + '" data-role="g-file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,application/pdf" /></label></div>';
+
+    var file = row.querySelector('[data-role="g-file"]');
+    var drop = row.querySelector(".file-drop");
+    file.addEventListener("change", function () {
+      var f = file.files[0];
+      drop.querySelector(".fd-text").textContent = f ? f.name : "Choose photo or PDF";
+      drop.classList.toggle("has-file", !!f);
+    });
+    if (i === 0) {
+      var n = row.querySelector('[data-role="g-name"]');
+      n.value = nameInput.value;
+      n.dataset.auto = "1";
+      n.addEventListener("input", function () { n.dataset.auto = ""; });
+    }
+    return row;
+  }
+
+  function syncGuests() {
+    var n = Math.max(1, +guestSel.value || 1);
+    while (idsHost.children.length < n) idsHost.appendChild(guestRow(idsHost.children.length));
+    while (idsHost.children.length > n) idsHost.removeChild(idsHost.lastChild);
+  }
+  guestSel.addEventListener("change", syncGuests);
+  nameInput.addEventListener("input", function () {
+    var first = idsHost.querySelector('[data-role="g-name"]');
+    if (first && first.dataset.auto) first.value = nameInput.value;
+  });
+  syncGuests();
+
+  // The follow-up fields only matter once their box is ticked.
+  function syncSub(box, host) {
+    host.hidden = !box.checked;
+    if (!box.checked) {
+      host.querySelectorAll("input, textarea").forEach(function (f) { f.value = ""; });
+    }
+  }
+  pickupBox.addEventListener("change", function () { syncSub(pickupBox, pickupFields); });
+  medicalBox.addEventListener("change", function () { syncSub(medicalBox, medicalFields); });
+  syncSub(pickupBox, pickupFields);
+  syncSub(medicalBox, medicalFields);
+
+  if (!INVITE_KEY) {
+    form.hidden = true;
+    document.getElementById("rsvp-locked").hidden = false;
+  }
 
   function showError(msg) {
     errorBox.textContent = msg;
     errorBox.hidden = !msg;
   }
 
-  function showThanks() {
-    form.hidden = true;
-    thanks.hidden = false;
-    thanks.scrollIntoView({ block: "center", behavior: "smooth" });
+  function clearFieldErrors() {
+    form.querySelectorAll(".has-err").forEach(function (w) { w.classList.remove("has-err"); });
+    form.querySelectorAll(".field-err").forEach(function (n) { n.remove(); });
+    form.querySelectorAll("[aria-invalid]").forEach(function (n) { n.removeAttribute("aria-invalid"); });
   }
 
-  function postToGoogleForm(entry) {
-    if (!GOOGLE_FORM.id) return Promise.resolve();
-
-    var body = new URLSearchParams();
-    Object.keys(GOOGLE_FORM.fields).forEach(function (key) {
-      var field = GOOGLE_FORM.fields[key];
-      if (!field) return;
-      var value = entry[key];
-      if (Array.isArray(value)) {
-        // A checkbox question wants its entry id repeated once per choice.
-        value.forEach(function (choice) { body.append(field, choice); });
-      } else {
-        body.append(field, value == null ? "" : String(value));
-      }
-    });
-
-    // Google Forms sends no CORS headers, so this must be a no-cors request
-    // and the response is opaque — we cannot tell a save from a rejection.
-    // Verify against the linked Sheet after a test reply.
-    return fetch(
-      "https://docs.google.com/forms/d/e/" + GOOGLE_FORM.id + "/formResponse",
-      { method: "POST", mode: "no-cors", body: body }
-    ).catch(function () { /* reply is still stored locally */ });
-  }
-
-  function postToEndpoint(entry) {
-    var endpoint = RSVP_ENDPOINT.trim();
-    if (!endpoint) return Promise.resolve();
-    return fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(entry)
-    }).catch(function () { /* reply is still stored locally */ });
-  }
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    var fd = new FormData(form);
-    var functions = fd.getAll("functions");
-    if (!functions.length) {
-      showError("Please pick at least one function you will attend.");
-      return;
+  // Shows the message under the field it belongs to, as well as by the button.
+  function invalid(msg, el) {
+    clearFieldErrors();
+    showError(msg);
+    if (el) {
+      var chip = el.closest("label.fn-chip");
+      var wrap = (chip && chip.parentNode) || el.parentNode;
+      wrap.classList.add("has-err");
+      el.setAttribute("aria-invalid", "true");
+      var note = document.createElement("p");
+      note.className = "field-err";
+      note.textContent = msg;
+      wrap.appendChild(note);
+      try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); }
+      wrap.scrollIntoView({ block: "center", behavior: reduceMotion ? "auto" : "smooth" });
     }
+    return null;
+  }
+
+  form.addEventListener("input", clearOnEdit);
+  form.addEventListener("change", clearOnEdit);
+  function clearOnEdit(e) {
+    var w = e.target.closest && e.target.closest(".has-err");
+    if (!w) return;
+    w.classList.remove("has-err");
+    var n = w.querySelector(".field-err");
+    if (n) n.remove();
+    e.target.removeAttribute("aria-invalid");
     showError("");
+  }
 
-    var entry = {
-      name: fd.get("name"),
-      phone: fd.get("phone"),
-      email: fd.get("email") || "",
-      functions: functions,
-      functionsText: functions.join(", "),
-      guests: fd.get("guests"),
-      requests: fd.get("requests") || "",
-      message: fd.get("message") || "",
-      submittedAt: new Date().toISOString()
+  function fileType(f) {
+    if (f.type) return f.type === "image/jpg" ? "image/jpeg" : f.type;
+    var ext = (f.name.split(".").pop() || "").toLowerCase();
+    return { jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp", heic: "image/heic", heif: "image/heif", pdf: "application/pdf" }[ext] || "";
+  }
+
+  // Phone photographs are large: shrink them to a readable JPEG before upload.
+  function shrinkImage(file) {
+    return new Promise(function (resolve) {
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var max = 1800, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, max / Math.max(w, h));
+        var c = document.createElement("canvas");
+        c.width = Math.round(w * k); c.height = Math.round(h * k);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (b) { resolve(b); }, "image/jpeg", .85);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); resolve(null); };
+      img.src = url;
+    });
+  }
+
+  function toBase64(blob) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onload = function () { resolve(String(r.result).split(",")[1] || ""); };
+      r.onerror = function () { reject(new Error("Could not read the file")); };
+      r.readAsDataURL(blob);
+    });
+  }
+
+  async function prepareFile(file) {
+    var type = fileType(file);
+    if (/^image\/(jpeg|png|webp)$/.test(type)) {
+      var small = await shrinkImage(file);
+      if (small && small.size <= MAX_FILE && (small.size < file.size || file.size > MAX_FILE)) {
+        return { blob: small, type: "image/jpeg" };
+      }
+    }
+    if (file.size > MAX_FILE) throw new Error(file.name + " is larger than 5 MB");
+    return { blob: file, type: type };
+  }
+
+  function collect() {
+    var fd = new FormData(form);
+    var data = {
+      name: (fd.get("name") || "").trim(),
+      phone: (fd.get("phone") || "").trim()
     };
+    if (!data.name) return invalid("Please tell us your name.", nameInput);
+    if (data.phone.replace(/\D/g, "").length < 10) return invalid("Please add a phone number we can reach you on.", phoneInput);
 
-    // Keep a local copy first. Google's response is opaque (see below), so
-    // this is the only record that survives a send that silently failed.
+    data.days = fd.getAll("days").filter(function (d) { return DAYS.indexOf(d) !== -1; });
+    if (!data.days.length) {
+      return invalid("Please tell us which day or days you will join us.", form.querySelector('input[name="days"]'));
+    }
+
+    data.guests = String(+guestSel.value || 1);
+
+    data.travelBy = fd.get("travelBy") || "";
+    if (MODES.indexOf(data.travelBy) === -1) {
+      return invalid("Please tell us how you are travelling.", form.querySelector('input[name="travelBy"]'));
+    }
+    data.arriveDate = fd.get("arriveDate") || "";
+    if (ARRIVE_DATES.indexOf(data.arriveDate) === -1) data.arriveDate = ARRIVE_DATES[1];
+    data.arriveTime = fd.get("arriveTime") || "";
+    if (!data.arriveTime) {
+      return invalid("Please add your arrival time.", document.getElementById("rsvp-arrive-time"));
+    }
+
+    data.assistance = fd.getAll("assistance").filter(function (x) { return ASSISTANCE.indexOf(x) !== -1; });
+    data.pickupStation = "";
+    data.pickupTrain = "";
+    data.medicalNote = "";
+    if (data.assistance.indexOf("Pick-up required at railway station") !== -1) {
+      data.pickupStation = (fd.get("pickupStation") || "").trim();
+      data.pickupTrain = (fd.get("pickupTrain") || "").trim();
+      if (!data.pickupStation) {
+        return invalid("Please tell us which station to meet you at.", document.getElementById("rsvp-station"));
+      }
+    }
+    if (data.assistance.indexOf("Special medical care") !== -1) {
+      data.medicalNote = (fd.get("medicalNote") || "").trim();
+      if (!data.medicalNote) {
+        return invalid("Please tell us what we should arrange.", document.getElementById("rsvp-medical"));
+      }
+    }
+
+    // ID proofs, all optional: a card counts only once a file is attached.
+    var guests = [];
+    var rows = idsHost.querySelectorAll(".guest-card");
+    for (var i = 0; i < rows.length; i++) {
+      var nm = rows[i].querySelector('[data-role="g-name"]');
+      var tp = rows[i].querySelector('[data-role="g-type"]');
+      var fl = rows[i].querySelector('[data-role="g-file"]');
+      var f = fl.files[0];
+      if (!f) continue;
+      var t = fileType(f);
+      if (OK_TYPES.indexOf(t) === -1) {
+        return invalid("The ID for guest " + (i + 1) + " must be a photo or a PDF.", fl);
+      }
+      var cap = (t === "application/pdf" || /heic|heif/.test(t)) ? MAX_FILE : MAX_RAW_IMAGE;
+      if (f.size > cap) {
+        return invalid("The ID for guest " + (i + 1) + " is too large. Please use a file under 5 MB.", fl);
+      }
+      if (!nm.value.trim()) {
+        return invalid("Please add the name for guest " + (i + 1) + ", so we know whose ID this is.", nm);
+      }
+      if (ID_TYPES.indexOf(tp.value) === -1) {
+        return invalid("Please choose the ID type for guest " + (i + 1) + ".", tp);
+      }
+      guests.push({ index: i, name: nm.value.trim(), idType: tp.value, file: f });
+    }
+    return { data: data, guests: guests };
+  }
+
+  function newId() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 12);
+  }
+
+  function post(payload) {
+    payload.key = INVITE_KEY;
+    payload.side = "bride";
+    payload.website = form.elements.website.value;
+    // text/plain keeps this a simple request, so Apps Script needs no preflight.
+    return fetch(RSVP_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j || !j.ok) throw new Error((j && j.error) || "the server did not accept it");
+        return j;
+      });
+  }
+
+  function fmtTime(t) {
+    if (!t) return "";
+    var h = +t.slice(0, 2), m = t.slice(3, 5);
+    return (h % 12 || 12) + ":" + m + (h < 12 ? " am" : " pm");
+  }
+
+  // A family who already replied from this device sees that, so they do not
+  // send a duplicate by accident.
+  function showPrevNote() {
+    var n = document.getElementById("rsvp-prev");
     try {
       var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "[]");
-      saved.push(entry);
+      var last = saved[saved.length - 1];
+      if (!last || !INVITE_KEY) { n.hidden = true; return; }
+      var when = new Date(last.submittedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+      n.textContent = "You already replied from this device on " + when + ". Sending again adds an updated reply.";
+      n.hidden = false;
+    } catch (e) { n.hidden = true; }
+  }
+  showPrevNote();
+
+  function setBusy(text) {
+    submitBtn.disabled = !!text;
+    submitBtn.textContent = text || "Send RSVP";
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var got = collect();
+    if (!got) return;
+    showError("");
+    clearFieldErrors();
+
+    var id = newId();
+    var d = got.data;
+
+    // Upload whatever IDs were attached, but never let one stop the reply: a
+    // file that fails is reported once the RSVP itself is safely saved.
+    var uploaded = 0, failed = 0;
+    for (var i = 0; i < got.guests.length; i++) {
+      var guest = got.guests[i];
+      setBusy("Uploading ID " + (i + 1) + " of " + got.guests.length + "…");
+      try {
+        var prepared = await prepareFile(guest.file);
+        await post({
+          kind: "file", submissionId: id, primaryName: d.name, index: guest.index,
+          guestName: guest.name, idType: guest.idType, mimeType: prepared.type,
+          data: await toBase64(prepared.blob)
+        });
+        uploaded++;
+      } catch (err) {
+        failed++;
+      }
+    }
+
+    d.ids = got.guests.map(function (x) { return { name: x.name, idType: x.idType }; });
+    d.idsUploaded = String(uploaded);
+
+    setBusy("Sending…");
+    try {
+      await post(Object.assign({ kind: "rsvp-bride", submissionId: id }, d));
+    } catch (err) {
+      setBusy("");
+      showError("We could not send your RSVP (" + ((err && err.message) || "network error") + "). Please try again, or call us.");
+      return;
+    }
+
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "[]");
+      saved.push(Object.assign({ submittedAt: new Date().toISOString(), submissionId: id }, d));
       localStorage.setItem(STORE_KEY, JSON.stringify(saved));
-    } catch (err) { /* storage unavailable */ }
+    } catch (err2) { /* storage unavailable */ }
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending…";
+    var sum = document.getElementById("ty-summary");
+    sum.innerHTML = "";
+    function li(label, text) {
+      var n = document.createElement("li");
+      var b = document.createElement("b");
+      b.textContent = label + " ";
+      n.appendChild(b);
+      n.appendChild(document.createTextNode(text));
+      sum.appendChild(n);
+    }
+    li("Guests:", d.guests + (d.guests === "1" ? " person" : " people"));
+    li("Joining:", d.days.join(" and "));
+    li("Arriving:", d.arriveDate + ", " + fmtTime(d.arriveTime) + " by " + d.travelBy.toLowerCase());
+    if (d.assistance.length) li("Assistance:", d.assistance.join(", "));
+    li("ID proofs:", uploaded ? uploaded + " uploaded" : "none yet, you can send them later");
 
-    Promise.all([postToGoogleForm(entry), postToEndpoint(entry)])
-      .catch(function () {})
-      .then(function () {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Send RSVP";
-        showThanks();
-      });
+    showPrevNote();
+    setBusy("");
+    form.hidden = true;
+    thanks.hidden = false;
+
+    var oldWarn = document.getElementById("ty-warn");
+    if (oldWarn) oldWarn.remove();
+    if (failed) {
+      var warn = document.createElement("p");
+      warn.id = "ty-warn";
+      warn.style.cssText = "font:500 15px/1.6 Karla,sans-serif;color:#8C2C3E;margin:18px auto 0;max-width:340px";
+      warn.textContent = failed + (failed === 1 ? " ID did not upload." : " IDs did not upload.") +
+        " Your reply is saved. Please send those to Vedika or Tarun on WhatsApp.";
+      sum.parentNode.insertBefore(warn, sum.nextSibling);
+    }
+    thanks.scrollIntoView({ block: "center", behavior: reduceMotion ? "auto" : "smooth" });
   });
 
   resetBtn.addEventListener("click", function () {
     form.reset();
+    idsHost.innerHTML = "";
+    syncGuests();
+    syncSub(pickupBox, pickupFields);
+    syncSub(medicalBox, medicalFields);
     form.hidden = false;
     thanks.hidden = true;
     showError("");
-    form.scrollIntoView({ block: "start", behavior: "smooth" });
+    clearFieldErrors();
+    form.scrollIntoView({ block: "start", behavior: reduceMotion ? "auto" : "smooth" });
   });
+
+  // Phone numbers come from the backend, only for visitors holding the key.
+  (function loadContactNumbers() {
+    if (!INVITE_KEY) return;
+    var CACHE = "std-contacts";
+    try {
+      var cached = JSON.parse(sessionStorage.getItem(CACHE) || "null");
+      if (cached && cached.length) { renderContacts(cached, ""); return; }
+    } catch (e) {}
+    post({ kind: "contacts" }).then(function (j) {
+      var list = Array.isArray(j.contacts) ? j.contacts.filter(function (c) { return c && c.name; }) : [];
+      if (!list.length) return;
+      renderContacts(list, "");
+      try { sessionStorage.setItem(CACHE, JSON.stringify(list)); } catch (e) {}
+    }).catch(function () { /* keep the names without numbers */ });
+  })();
 })();
 </script>
 </body>
