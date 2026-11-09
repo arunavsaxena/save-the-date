@@ -17,10 +17,10 @@ countdown → events (Day One and Day Two) → RSVP → who to call → gallery 
 
 ## Behaviour
 
-- **Intro envelope** — a drawn burgundy envelope filling the screen, no
-  photograph and no seal: tapping anywhere swings the flap open and lifts the
-  screen away. Scroll is locked until it is opened, and Enter, Space or Escape
-  open it too.
+- **Intro envelope** — a large ivory envelope on a dusk sky with paper lanterns
+  rising through it, both taken from `arunav-rsvp-invitation`. No photograph and
+  no seal: a tap anywhere on the screen swings the flap open and lifts it away.
+  Scroll is locked until it is opened, and Enter, Space or Escape open it too.
 - **Music** — `assets/shloka.mp3` (Om Mangalam Bhagwan Vishnu, 42 seconds,
   looped), started by the tap that opens the envelope, with a mute button at the
   bottom left. `AUDIO_SRC` also accepts a YouTube link, but phones refuse to start
