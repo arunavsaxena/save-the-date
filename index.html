@@ -492,9 +492,11 @@
 
   <!-- ============ Contacts ============ -->
   <section data-screen-label="Contacts" id="contacts" style="background:#F2E9DB;text-align:center;padding:clamp(56px,11vw,86px) 26px">
-    <div style="display:grid;gap:20px;justify-content:center;max-width:620px;margin:0 auto">
-      <div style="font:700 12px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#9A7B45">For any assistance please contact</div>
-      <div id="contact-list" style="display:grid;gap:12px;min-width:min(360px,84vw)"></div>
+    <div style="display:grid;justify-content:center;max-width:620px;margin:0 auto">
+      <div style="background:#5E1C2A;border:1px solid rgba(217,190,144,.35);box-shadow:0 12px 30px rgba(70,38,28,.16);min-width:min(360px,84vw)">
+        <div style="font:700 12px Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#FFFFFF;padding:22px 20px 6px">For any assistance please contact</div>
+        <div id="contact-list"></div>
+      </div>
     </div>
   </section>
 
@@ -773,24 +775,23 @@
     var phoneIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>';
     var waIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.4L3 21Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.3-1.8-1-1 .8a4 4 0 0 1-2.2-2.2l.8-1-1-1.8L9 9.5Z"/></svg>';
 
-    // Everyone shares one wine panel, divided by hairlines rather than gaps.
+    // Everyone shares one wine panel, with the heading above them inside it.
     renderContacts = function (list, note) {
-      var rows = list.map(function (p, i) {
+      var rows = list.map(function (p) {
         var digits = (p.phone || "").replace(/[^\d+]/g, "");
         var acts = digits
           ? '<div style="display:flex;gap:8px;flex:none">' +
             '<a class="ic" href="tel:' + esc(digits) + '" aria-label="Call ' + esc(p.name) + '">' + phoneIcon + '</a>' +
             '<a class="ic" href="https://wa.me/' + esc(digits.replace(/^\+/, "")) + '" target="_blank" rel="noopener" aria-label="WhatsApp ' + esc(p.name) + '">' + waIcon + '</a></div>'
           : "";
-        return '<div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px;text-align:left' +
-          (i ? ';border-top:1px solid rgba(217,190,144,.3)' : '') + '">' +
+        return '<div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 20px;text-align:left">' +
           '<div><div style="font:500 21px \'Cormorant Garamond\',serif;color:#FBF3E7">' + esc(p.name) + '</div>' +
           (p.role ? '<div style="font:600 11px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E6CFA3;margin-top:4px">' + esc(p.role) + '</div>' : "") +
           (p.phone ? '<div style="font:400 16px Karla,sans-serif;color:rgba(251,243,231,.9);margin-top:6px">' + esc(p.phone) + '</div>' : "") +
           '</div>' + acts + '</div>';
       }).join("");
-      host.innerHTML = '<div style="background:#5E1C2A;border:1px solid rgba(217,190,144,.35);box-shadow:0 12px 30px rgba(70,38,28,.16)">' + rows + '</div>' +
-        (note ? '<p style="font:400 14px Karla,sans-serif;color:#8A7D71;margin:2px 0 0">' + esc(note) + '</p>' : "");
+      host.innerHTML = rows +
+        (note ? '<p style="font:400 14px/1.5 Karla,sans-serif;color:rgba(251,243,231,.66);margin:0;padding:14px 20px 18px;text-align:left">' + esc(note) + '</p>' : "");
     };
     renderContacts(CONTACTS, INVITE_KEY ? "" : "Phone numbers appear when you open the link from your invitation.");
   })();
