@@ -98,6 +98,22 @@ editor (**Deploy → Manage deployments → Edit → Version: New version**); th
 `RSVP_ENDPOINT` URL in `index.html` stays the same. Both sites share that
 deployment, so always deploy a new *version*, never a new deployment.
 
+### If someone else is deploying
+
+Script access is granted by sharing the **Sheet** as Editor: the script is bound
+to it and has no sharing of its own. That also hands over every RSVP, so decide
+on the data access first. Two rules for whoever has it:
+
+- **Deploy a new version of the existing deployment, never a new deployment.** A
+  new one gets a new URL and silently breaks both sites.
+- **Don't run `setupInviteKey`, `setupBrideInviteKey` or the rotate functions
+  from the editor.** Those run as them, and the Drive folders aren't shared with
+  them, so they'll fail or create stray folders in their own Drive. Keep those
+  for the owner.
+
+One person in the editor at a time, working from the repo file: the Apps Script
+editor has no merge, so whoever saves last wins.
+
 ### Phone numbers
 
 Names and roles (Tarun, Sonia, Vedika) are in `index.html`; the numbers are not.
