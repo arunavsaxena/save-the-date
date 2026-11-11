@@ -139,7 +139,21 @@
   @media (max-height: 640px) { .stage { min-height: 0; padding-top: 96px; gap: 10px; } }
   }
 
-  .link-maps:hover { color: #9A6B34 !important; border-bottom-color: #9A6B34 !important; }
+  /* Directions: a pill with a pin and an outward arrow, as on the groom's site. */
+  .link-maps {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 48px;
+    padding: 12px 20px 12px 16px; border-radius: 999px; color: #5E1C2A;
+    font: 700 12px Karla, sans-serif; letter-spacing: .18em; text-transform: uppercase;
+    background: linear-gradient(160deg, #FFFDF8, #F7EEDF);
+    border: 1px solid rgba(169,139,93,.55);
+    box-shadow: 0 8px 20px rgba(74,15,26,.12), inset 0 1px 0 #fff;
+    transition: transform .2s, box-shadow .2s, background .2s;
+  }
+  .link-maps svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .link-maps .go { width: 14px; height: 14px; opacity: .7; transition: transform .2s; }
+  .link-maps:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(74,15,26,.16), inset 0 1px 0 #fff; }
+  .link-maps:hover .go { transform: translate(2px, -2px); }
+  .link-maps:focus-visible { outline: 2px solid #5E1C2A; outline-offset: 3px; }
 
   .fld:focus { border-color: #A98B5D !important; }
   .fn-chip:hover { border-color: #A98B5D !important; }
@@ -278,28 +292,44 @@
   <section data-screen-label="Invitation" style="background:#FBF6EE;padding:clamp(64px,13vw,104px) 26px;text-align:center">
     <div class="rv" style="max-width:580px;margin:0 auto">
       <!-- Ganesh ji, drawn in a single weight of line. -->
-      <svg viewBox="0 0 64 64" role="img" aria-label="Shri Ganesh" data-px="-0.035" style="width:clamp(54px,13vw,68px);height:auto;display:block;margin:0 auto 22px;color:#A98B5D" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M26.6 18.6 C27.2 12.4 29.8 9 32 6.6 C34.2 9 36.8 12.4 37.4 18.6" />
-        <circle cx="32" cy="4.6" r="1.7" fill="currentColor" stroke="none" />
-        <path d="M21.5 27.5 a10.5 10.5 0 0 1 21 0 v3.4 a10.5 10.5 0 0 1 -4.6 8.7" />
-        <path d="M21.6 25.6 c-6.6 -3 -12.1 .6 -12.1 6.4 c0 5.8 5.5 9.6 12.1 6.8" />
-        <path d="M42.4 25.6 c6.6 -3 12.1 .6 12.1 6.4 c0 5.8 -5.5 9.6 -12.1 6.8" />
-        <path d="M27 28.4 h3.4 M33.6 28.4 h3.4" />
-        <path d="M32 31.6 v7.6 c0 5.4 -3.8 8.8 -8.4 8.8 c-3.8 0 -6.2 -2.6 -6.2 -5.6 c0 -2.8 2.4 -4.6 5 -4" />
-        <path d="M26.6 37.2 l-2.6 3.4 M37.4 37.2 l2.6 3.4" />
-        <path d="M15 53 h34" opacity=".5" />
+      <svg viewBox="0 0 64 64" role="img" aria-label="Lord Ganesh" data-px="-0.035" style="width:clamp(58px,14vw,74px);height:auto;display:block;margin:0 auto 22px;color:#A98B5D">
+        <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M24.5 17.5 C26 11.5 29 8.5 32 6.5 C35 8.5 38 11.5 39.5 17.5" />
+          <path d="M23 18 H41" />
+          <path d="M22.5 21 C27 17.8 37 17.8 41.5 21" />
+          <path d="M22.5 21 C15 17.5 7.5 22 8.5 30 C9.5 37 16 39.5 22 36.5" />
+          <path d="M41.5 21 C49 17.5 56.5 22 55.5 30 C54.5 37 48 39.5 42 36.5" />
+          <path d="M22.5 21 C21.5 28 23 34 27.5 38.5" />
+          <path d="M41.5 21 C42.5 28 41 34 36.5 38.5" />
+          <path d="M30 29 C29 37 27.5 44 30.5 50 C33 55 39.5 54.5 40.5 50.5 C41.2 47.5 38.5 46 36.8 47.6" />
+          <path d="M34 29 C34.2 36 33.6 41 35.2 44.5" />
+          <path d="M26.2 36.5 L24 41.5" />
+          <path d="M32 20.5 V24" />
+        </g>
+        <circle cx="32" cy="5.2" r="1.3" fill="currentColor" />
+        <circle cx="27.2" cy="27" r="1.1" fill="currentColor" />
+        <circle cx="36.8" cy="27" r="1.1" fill="currentColor" />
       </svg>
       <p style="font:400 clamp(16px,4.2vw,19px)/2.1 'Tiro Devanagari Sanskrit',serif;color:#5E1C2A;margin:0 auto;max-width:30ch;text-wrap:balance">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br />निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥</p>
       <div style="width:44px;height:1px;background:#CDB68F;margin:30px auto"></div>
       <p style="font:400 clamp(18px,4.6vw,21px)/1.9 'Cormorant Garamond',serif;color:#5E554C;margin:0;text-wrap:pretty">
-        With joyful hearts, we invite you to celebrate the shubh vivah of our beloved daughter,<br />
-        <b style="font:600 clamp(26px,6.6vw,34px)/1.35 'Cormorant Garamond',serif;color:#3C2A24;display:inline-block;margin:8px 0">Shambhavi Sharma</b><br />
+        With joyful hearts, we request your gracious presence to celebrate the <i>Shubh Vivah</i> of our beloved daughter,<br />
+        <b style="font:600 clamp(26px,6.6vw,34px)/1.35 'Cormorant Garamond',serif;color:#3C2A24;display:inline-block;margin:8px 0">Shambhavi</b><br />
         with<br />
-        <b style="font:600 clamp(26px,6.6vw,34px)/1.35 'Cormorant Garamond',serif;color:#3C2A24;display:inline-block;margin:8px 0">Arunav Saxena</b><br />
-        (s/o Mrs. Sarita Saxena &amp; Mr. Sunil Kumar Saxena)<br />
-        Two days of family, feasting and music in the foothills of Jim Corbett.
+        <b style="font:600 clamp(26px,6.6vw,34px)/1.35 'Cormorant Garamond',serif;color:#3C2A24;display:inline-block;margin:8px 0">Arunav</b><br />
+        (S/o Mrs. Sarita and Sunil Kumar Saxena)
       </p>
-      <div style="margin-top:30px;font:700 clamp(15px,3.6vw,17px) Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#5E1C2A">Sonia &amp; Tarun Sharma</div>
+      <p style="margin:36px auto 0;max-width:30ch;font:italic 400 clamp(17px,4.3vw,20px)/1.8 'Cormorant Garamond',serif;color:#6B5F55;text-wrap:pretty">
+        &ldquo;Eagerly awaiting for two days of family togetherness, feasting and music in the foothills of Jim Corbett Park&rdquo;
+      </p>
+      <!-- The sign-off sits on a shallow arc, the way it would be written by hand. -->
+      <svg viewBox="0 0 420 86" role="img" aria-label="Sonia and Tarun Sharma" style="width:min(420px,92%);height:auto;display:block;margin:30px auto 0">
+        <defs><path id="signCurve" d="M14 66 Q210 14 406 66" fill="none" /></defs>
+        <text font-family="Pinyon Script, cursive" font-size="34" fill="#5E1C2A" text-anchor="middle">
+          <textPath href="#signCurve" startOffset="50%">Sonia and Tarun Sharma</textPath>
+        </text>
+      </svg>
+    </div>
     </div>
   </section>
 
@@ -315,7 +345,7 @@
       <img src="assets/evara-logo.jpeg" alt="Evara Spa and Resort" style="display:block;width:min(220px,58vw);height:auto;margin:24px auto 20px;mix-blend-mode:multiply" />
       <h3 style="font:500 clamp(34px,8.6vw,52px) 'Cormorant Garamond',serif;margin:0;color:#5E1C2A;letter-spacing:.02em;line-height:1.1">Evara Resort &amp; Spa</h3>
       <p style="font:500 clamp(17px,4.2vw,19px)/1.85 'Cormorant Garamond',serif;color:#4A4038;margin:16px 0 22px">Village Bhalon, Patkote, Ramnagar<br />Jim Corbett, Uttarakhand 263159</p>
-      <a class="link-maps" href="https://www.google.com/maps/search/?api=1&amp;query=Evara%20Resort%20and%20Spa%20Jim%20Corbett%20Uttarakhand" target="_blank" rel="noopener" style="display:inline-block;border-bottom:1px solid rgba(94,28,42,.5);color:#5E1C2A;padding-bottom:4px;font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase">Get directions on Google Maps</a>
+      <a class="link-maps" href="https://www.google.com/maps/search/?api=1&amp;query=Evara%20Resort%20and%20Spa%20Jim%20Corbett%20Uttarakhand" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Open in Google Maps</span><svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
     </div>
   </section>
 
@@ -323,8 +353,7 @@
   <section data-screen-label="Countdown" style="position:relative;background:#5E1C2A;padding:clamp(64px,13vw,100px) 22px;text-align:center;overflow:hidden">
     <div aria-hidden="true" data-px="0.06" style="position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 0%, rgba(217,190,144,.18), rgba(217,190,144,0) 70%)"></div>
     <div class="rv" style="position:relative;z-index:2;max-width:640px;margin:0 auto;color:#FBF3E7">
-      <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#E6CFA3">Until the celebrations begin</div>
-      <h2 style="font:300 clamp(28px,7vw,42px) 'Cormorant Garamond',serif;margin:16px 0 40px">The countdown begins</h2>
+      <h2 style="font:300 clamp(30px,7.4vw,44px) 'Cormorant Garamond',serif;margin:0 0 44px">The countdown begins</h2>
       <div style="display:flex;justify-content:center;gap:clamp(16px,6vw,44px)">
         <div>
           <div id="cd-days" style="font:300 clamp(38px,11vw,62px) 'Cormorant Garamond',serif;line-height:1">00</div>
@@ -353,54 +382,53 @@
   <section data-screen-label="Events" style="background:#FBF6EE;padding:clamp(64px,13vw,104px) 26px">
     <div class="rv" style="max-width:680px;margin:0 auto">
       <div style="text-align:center">
-        <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#9A7B45">The celebrations</div>
-        <h2 style="font:300 clamp(30px,7.5vw,48px) 'Cormorant Garamond',serif;margin:16px 0 0;color:#3C2A24">Join us for every moment</h2>
+        <h2 style="font:300 clamp(30px,7.5vw,48px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Join us for every moment</h2>
         <div style="width:44px;height:1px;background:#CDB68F;margin:26px auto 48px"></div>
       </div>
 
       <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
         <div style="height:1px;flex:1;background:#DFD1BE"></div>
-        <div style="font:700 12px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#9A7B45;white-space:nowrap">Day One · Wed 27 January</div>
+        <div style="font:700 clamp(12px,3vw,13px) Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#9A7B45;white-space:nowrap">Day One · Wed 27 January 2027</div>
         <div style="height:1px;flex:1;background:#DFD1BE"></div>
       </div>
       <div style="display:grid;gap:0">
         <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0;border-bottom:1px solid #EBE1D2">
           <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">12:00 pm</div>
-          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Welcome Lunch</h3>
-          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">A long table, a warm welcome and a long, unhurried lunch.</p>
+          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Check-in and Welcome Lunch</h3>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">A warm welcome and an unhurried lunch.</p>
         </div>
         <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0;border-bottom:1px solid #EBE1D2">
           <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">2:00 pm</div>
           <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Carnival</h3>
-          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">An afternoon of games, mehendi and music under the winter sun.</p>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">An afternoon of games, mehendi and music under the winter sun, followed by high tea.</p>
         </div>
         <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0">
-          <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">7:00 pm</div>
-          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Engagement</h3>
-          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">Cocktail dinner and sangeet, an evening of music and dancing.</p>
+          <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">6:00 pm</div>
+          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Engagement Ceremony</h3>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">An evening of music and dance followed by dinner and drinks.</p>
         </div>
       </div>
 
       <div style="display:flex;align-items:center;gap:16px;margin:40px 0 8px">
         <div style="height:1px;flex:1;background:#DFD1BE"></div>
-        <div style="font:700 12px Karla,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#9A7B45;white-space:nowrap">Day Two · Thu 28 January</div>
+        <div style="font:700 clamp(12px,3vw,13px) Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#9A7B45;white-space:nowrap">Day Two · Thu 28 January 2027</div>
         <div style="height:1px;flex:1;background:#DFD1BE"></div>
       </div>
       <div style="display:grid;gap:0">
         <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0;border-bottom:1px solid #EBE1D2">
-          <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">11:00 am</div>
-          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Vivah Sanskar</h3>
-          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">The wedding ceremony, and your blessings for the couple.</p>
+          <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">10:00 am</div>
+          <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Swagat Barat and Vivah Sanskar</h3>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">Wedding rituals, and your blessings for the newly weds.</p>
         </div>
         <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0;border-bottom:1px solid #EBE1D2">
           <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">1:00 pm</div>
           <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Lunch</h3>
-          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">Something warm, something sweet, and time to sit together.</p>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">A hearty feast and sweet conversations to enjoy the afternoon.</p>
         </div>
         <div style="display:grid;grid-template-columns:1fr;gap:7px;padding:26px 0">
           <div style="font:700 12px Karla,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8C2C3E">8:00 pm</div>
           <h3 style="font:500 clamp(24px,5.8vw,30px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24">Reception</h3>
-          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">Dinner, music and one more evening of celebration.</p>
+          <p style="margin:0;font:400 17px/1.65 'Cormorant Garamond',serif;color:#5E554C">An evening gala with dinner and music.</p>
         </div>
       </div>
     </div>
@@ -410,8 +438,8 @@
   <section data-screen-label="RSVP" id="rsvp" style="background:#EEE4D5;padding:clamp(56px,11vw,90px) 20px clamp(72px,14vw,110px)">
     <div class="rv" style="max-width:620px;margin:0 auto;background:#FBF6EE;padding:clamp(28px,7vw,54px);box-shadow:0 24px 60px rgba(70,38,28,.10)">
       <div style="text-align:center;margin-bottom:30px">
-        <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#9A7B45">Kindly reply</div>
-        <h2 style="font:300 clamp(34px,9vw,52px) 'Cormorant Garamond',serif;margin:14px 0 0;color:#3C2A24;letter-spacing:.02em">RSVP</h2>
+        <h2 style="font:300 clamp(34px,9vw,52px) 'Cormorant Garamond',serif;margin:0;color:#3C2A24;letter-spacing:.02em">RSVP</h2>
+        <p style="font:400 clamp(17px,4.3vw,19px)/1.6 'Cormorant Garamond',serif;color:#5E554C;margin:14px auto 0;max-width:34ch">Kindly let us know your arrival program as per the wedding events.</p>
       </div>
 
       <p id="rsvp-prev" hidden style="font:500 15px Karla,sans-serif;color:#9A7B45;margin:-8px 0 26px;text-align:center"></p>
@@ -440,18 +468,6 @@
         <div style="display:grid;gap:9px">
           <label for="rsvp-phone" style="font:600 12px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E554C">Phone number</label>
           <input class="fld" id="rsvp-phone" name="phone" type="tel" required placeholder="+91" autocomplete="tel" inputmode="tel" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0" />
-        </div>
-
-        <div style="display:grid;gap:11px">
-          <label style="font:600 12px Karla,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E554C">Kindly let us know your arrival program as per the wedding events</label>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px">
-            <label class="fn-chip" style="display:flex;align-items:center;gap:12px;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px;min-height:52px;font:400 16px Karla,sans-serif;color:#3C2A24;cursor:pointer">
-              <input type="checkbox" name="days" value="Day 1 - Wed 27 Jan" style="width:18px;height:18px;accent-color:#5E1C2A;margin:0" /> Day 1 · Wed 27 Jan
-            </label>
-            <label class="fn-chip" style="display:flex;align-items:center;gap:12px;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px;min-height:52px;font:400 16px Karla,sans-serif;color:#3C2A24;cursor:pointer">
-              <input type="checkbox" name="days" value="Day 2 - Thu 28 Jan" style="width:18px;height:18px;accent-color:#5E1C2A;margin:0" /> Day 2 · Thu 28 Jan
-            </label>
-          </div>
         </div>
 
         <div style="display:grid;gap:9px">
@@ -594,7 +610,7 @@
   var CONTACTS = [
     { name: "Tarun Sharma", role: "", phone: "" },
     { name: "Sonia Sharma", role: "", phone: "" },
-    { name: "Vedika", role: "RSVP co-ordinator", phone: "" }
+    { name: "RSVP co-ordinator", role: "", phone: "" }
   ];
 
   // The shared RSVP backend (apps-script/Code.gs in the arunav-rsvp-invitation
@@ -620,7 +636,6 @@
   // Values the backend checks against fixed lists. Keep them ASCII: a middle
   // dot does not survive the trip into Apps Script, so the labels carry the
   // typography and the values stay plain.
-  var DAYS = ["Day 1 - Wed 27 Jan", "Day 2 - Thu 28 Jan"];
   var MODES = ["Road", "Train", "Flight"];
   var ARRIVE_DATES = ["Tue, 26 Jan", "Wed, 27 Jan", "Thu, 28 Jan"];
   var ASSISTANCE = ["Accommodation for driver", "Pick-up required at railway station", "Special medical care"];
@@ -838,9 +853,10 @@
 
     var queued = false;
     function onScroll() {
+      show();                       // straight away: a reveal is content, not decoration
       if (queued) return;
       queued = true;
-      requestAnimationFrame(function () { queued = false; show(); drift(); });
+      requestAnimationFrame(function () { queued = false; drift(); });
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
@@ -1108,11 +1124,6 @@
     if (!data.name) return invalid("Please tell us your name.", nameInput);
     if (data.phone.replace(/\D/g, "").length < 10) return invalid("Please add a phone number we can reach you on.", phoneInput);
 
-    data.days = fd.getAll("days").filter(function (d) { return DAYS.indexOf(d) !== -1; });
-    if (!data.days.length) {
-      return invalid("Please tell us which day or days you will join us.", form.querySelector('input[name="days"]'));
-    }
-
     data.guests = String(+guestSel.value || 1);
 
     data.travelBy = fd.get("travelBy") || "";
@@ -1278,7 +1289,6 @@
       sum.appendChild(n);
     }
     li("Guests:", d.guests + (d.guests === "1" ? " person" : " people"));
-    li("Joining:", d.days.join(" and "));
     li("Arriving:", d.arriveDate + ", " + fmtTime(d.arriveTime) + " by " + d.travelBy.toLowerCase());
     if (d.assistance.length) li("Assistance:", d.assistance.join(", "));
     li("ID proofs:", uploaded ? uploaded + " uploaded" : "none yet, you can send them later");
