@@ -98,6 +98,43 @@ editor (**Deploy → Manage deployments → Edit → Version: New version**); th
 `RSVP_ENDPOINT` URL in `index.html` stays the same. Both sites share that
 deployment, so always deploy a new *version*, never a new deployment.
 
+### Editing and deploying the script
+
+The repo copy is the source of truth, but it is **not** what is running: the
+deployed copy has `DRIVE_FOLDER_ID` filled in, and the repo keeps it blank. So
+every change goes out like this.
+
+1. **Open the editor.** The Sheet → **Extensions → Apps Script**. Both sides of
+   the wedding live in one `Code.gs`; the bride's half is everything named
+   `BRIDE_*`, plus `saveBrideRsvp_`, `brideSheet_` and `setupBrideInviteKey`.
+2. **Check the editor against the repo first.** Click in the code, select all,
+   copy, and diff it against `apps-script/Code.gs` in `arunav-rsvp-invitation`.
+   If they differ, someone edited in the browser without committing: work out
+   which is newer before you overwrite anything.
+3. **Make the change in the repo file**, not in the browser, and keep
+   `DRIVE_FOLDER_ID` and `BRIDE_DRIVE_FOLDER_ID` blank there.
+4. **Keep every validated value ASCII.** Anything the backend checks against a
+   fixed list (the days, the modes, the dates, the assistance options) must be
+   plain ASCII on both sides. A middle dot does not survive the POST into Apps
+   Script and every reply is rejected.
+5. **Paste it in.** In the editor: select all, paste, then restore the
+   `DRIVE_FOLDER_ID` line the deployed copy had. Save (⌘S / Ctrl+S) and wait for
+   "Saved to Drive". A syntax error blocks the save, which is the first check.
+6. **Verify what actually landed.** Select all, copy, and diff against the file
+   you meant to deploy. The editor is easy to paste into by accident, and a
+   clipboard that changed under you is hard to spot by eye.
+7. **Deploy.** **Deploy → Manage deployments → pencil → Version: New version →
+   Deploy.** The deployment id, and so the `/exec` URL, stays the same.
+8. **Send one real reply** from the site and confirm the row lands in the right
+   tab, then delete that row. Apps Script errors are invisible to the guest
+   beyond a short message, so a live reply is the only real test.
+9. **Commit and push the repo copy**, so the next person does not start from a
+   version that is behind what is running.
+
+To undo a bad paste before saving: ⌘Z / Ctrl+Z in the editor restores the
+previous content. If a bad version is already deployed, redeploy from the repo
+file rather than editing the live one by hand.
+
 ### If someone else is deploying
 
 Script access is granted by sharing the **Sheet** as Editor: the script is bound
