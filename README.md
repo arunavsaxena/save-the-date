@@ -10,14 +10,13 @@ fresh Claude session: it covers both sites, the shared backend and the traps.
 index.html          Whole site — markup, styles and behaviour in one file
 HANDOFF-PROMPT.md   Briefing for whoever picks this up next
 assets/             Photography and the Evara logo
-assets/gallery/     Gallery photographs (see below)
 CNAME               Custom domain for GitHub Pages
 ```
 
 ## Sections
 
 Landing → hero → invitation (Ganesh shloka and the parents' words) → venue →
-countdown → events (Day One and Day Two) → RSVP → who to call → gallery → footer.
+countdown → events (Day One and Day Two) → RSVP → who to call → footer.
 
 ## Behaviour
 
@@ -45,11 +44,6 @@ countdown → events (Day One and Day Two) → RSVP → who to call → gallery 
 - **Countdown** — ticks to 27 Jan 2027, 12:00 PM IST (Welcome Lunch). Change
   `TARGET` at the top of the script block to retarget it at the Vivah Sanskar
   (`2027-01-28T11:00:00+05:30`).
-- **Gallery** — four portrait photographs in `assets/gallery/` (`01.jpg` to
-  `04.jpg`), listed in `GALLERY`. To add more, drop them in that folder, resize to
-  about 1500px on the long side, and add the file names to that list. The frames
-  are 4:5, so portrait photographs sit best; while the list is empty, six empty
-  frames hold the section's shape.
 - **RSVP** — posted to the shared Apps Script backend; a copy is kept in the
   guest's own browser under `localStorage` `std-wedding-rsvps`.
 
@@ -177,6 +171,5 @@ parents carry no role label, so leave those blank:
 - [ ] Fill `CONTACTS_BRIDE` with the three numbers
 - [ ] Listen to the page once on a phone, to check the music starts and mutes
 - [x] Music file added (`assets/shloka.mp3`)
-- [x] Gallery photographs added (four, in `assets/gallery/`)
 - [ ] Confirm the Google Maps link points at the right Evara property
 - [ ] Push the site so GitHub Pages serves the new page

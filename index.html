@@ -199,23 +199,6 @@
   .ic:hover { background: rgba(251,243,231,.16); color: #FBF3E7; }
   .ic svg { width: 19px; height: 19px; }
 
-  /* Gallery: tall rectangles in thin gold frames. */
-  /* Two frames across on a phone, more as the screen allows. */
-  .gal { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: clamp(12px, 3vw, 22px); }
-  .gal figure { margin: 0; position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: linear-gradient(160deg, #F3E7D2, #E8D8BC); box-shadow: 0 16px 36px rgba(70,38,28,.12); }
-  .gal figure::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(169,139,93,.55); pointer-events: none; }
-  /* The photographs are taller than the frame, so only the vertical crop
-     matters: sit it above centre to keep heads in and trim the floor. */
-  .gal img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; display: block; }
-  .gal .empty { position: absolute; inset: 0; display: grid; place-items: center; color: #B29B76; }
-  .gal .empty svg { width: 36px; height: 36px; }
-
-  /* Sections settle into place as they come into view, and a few layers drift
-     against the scroll. Both are off when the reader asks for less motion. */
-  .rv { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .9s cubic-bezier(.4,0,.2,1); }
-  .rv.in { opacity: 1; transform: none; }
-  [data-px] { will-change: transform; }
-
   [hidden] { display: none !important; }
 
   @media (prefers-reduced-motion: reduce) {
@@ -551,18 +534,6 @@
     </div>
   </section>
 
-  <!-- ============ Gallery ============ -->
-  <section data-screen-label="Gallery" id="gallery" style="background:#F2E9DB;padding:clamp(60px,12vw,96px) 26px">
-    <div style="max-width:960px;margin:0 auto">
-      <div style="text-align:center">
-        <div style="font:700 12px Karla,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#9A7B45">A few favourites</div>
-        <h2 style="font:300 clamp(30px,7.5vw,48px) 'Cormorant Garamond',serif;margin:16px 0 0;color:#3C2A24">Moments</h2>
-        <div style="width:44px;height:1px;background:#CDB68F;margin:26px auto 44px"></div>
-      </div>
-      <div class="gal" id="gal"></div>
-    </div>
-  </section>
-
   <!-- ============ Footer ============ -->
   <footer data-screen-label="Footer" style="position:relative;background:#4A1522;color:#FBF3E7;text-align:center;overflow:hidden;padding:clamp(66px,13vw,104px) 26px clamp(56px,9vw,80px)">
     <div aria-hidden="true" data-px="0.05" style="position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 0%, rgba(217,190,144,.16), rgba(217,190,144,0) 70%)"></div>
@@ -590,12 +561,6 @@
   // page stays silent and the mute button never appears. Browsers block sound
   // until a tap, so the first note follows the tap on the seal.
   var AUDIO_SRC = "assets/shloka.mp3";
-
-  // The gallery. Drop photographs into assets/gallery/ and list the file names
-  // here, for example ["01.jpg", "02.jpg"]. While it is empty, empty frames
-  // hold the section's shape.
-  var GALLERY = ["01.jpg", "02.jpg", "03.jpg", "04.jpg"];
-  var GALLERY_PLACEHOLDERS = 6;
 
   // Who to call. Names and roles only: the phone numbers live in the Apps
   // Script's Script Properties (CONTACTS_BRIDE) and are served only to
@@ -879,25 +844,6 @@
 
   tick();
   setInterval(tick, 1000);
-
-  // ---- Gallery ------------------------------------------------------------
-  (function () {
-    var host = document.getElementById("gal");
-    var frame = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.2"/><path d="M8.4 6l1.1-2h5l1.1 2"/></svg>';
-    if (GALLERY.length) {
-      host.innerHTML = GALLERY.map(function (file, i) {
-        return '<figure class="rv"><img src="assets/gallery/' + esc(file) + '" alt="Shambhavi and Arunav, photograph ' + (i + 1) + '" loading="lazy" data-px="0.045" data-px-base="scale(1.08)" /></figure>';
-      }).join("");
-      observeReveals(host.querySelectorAll("figure"));
-      refreshParallax();
-    } else {
-      var cells = [];
-      for (var i = 0; i < GALLERY_PLACEHOLDERS; i++) {
-        cells.push('<figure><div class="empty">' + frame + '</div></figure>');
-      }
-      host.innerHTML = cells.join("");
-    }
-  })();
 
   // ---- Contacts -----------------------------------------------------------
   // Names and roles are in the page; numbers arrive from the backend, and only
