@@ -491,7 +491,7 @@
               </select>
             </div>
             <div style="display:grid;gap:9px">
-              <label for="rsvp-arrive-time" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">Arrival time</label>
+              <label for="rsvp-arrive-time" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">Arrival time <span style="letter-spacing:.04em;text-transform:none;color:#A79C90">(optional)</span></label>
               <select class="fld" id="rsvp-arrive-time" name="arriveTime" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0"></select>
             </div>
           </div>
@@ -509,7 +509,7 @@
           </label>
           <div class="sub-field" id="pickup-fields" hidden>
             <div style="display:grid;gap:9px">
-              <label for="rsvp-station" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">Which station</label>
+              <label for="rsvp-station" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">Which station <span style="letter-spacing:.04em;text-transform:none;color:#A79C90">(optional)</span></label>
               <input class="fld" id="rsvp-station" name="pickupStation" placeholder="Kathgodam" style="width:100%;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px Karla,sans-serif;outline:none;border-radius:0" />
             </div>
             <div style="display:grid;gap:9px">
@@ -523,7 +523,7 @@
           </label>
           <div class="sub-field" id="medical-fields" hidden>
             <div style="display:grid;gap:9px">
-              <label for="rsvp-medical" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">What should we arrange</label>
+              <label for="rsvp-medical" style="font:600 11px Karla,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#8A7D71">What should we arrange <span style="letter-spacing:.04em;text-transform:none;color:#A79C90">(optional)</span></label>
               <textarea class="fld" id="rsvp-medical" name="medicalNote" placeholder="Anything we should keep ready, or know in advance" style="width:100%;min-height:92px;resize:vertical;border:1px solid #DCD0BF;background:#FFFDF8;padding:15px 14px;font:400 17px/1.5 Karla,sans-serif;outline:none;border-radius:0"></textarea>
             </div>
           </div>
@@ -1126,9 +1126,6 @@
     data.arriveDate = fd.get("arriveDate") || "";
     if (ARRIVE_DATES.indexOf(data.arriveDate) === -1) data.arriveDate = ARRIVE_DATES[1];
     data.arriveTime = fd.get("arriveTime") || "";
-    if (!data.arriveTime) {
-      return invalid("Please add your arrival time.", document.getElementById("rsvp-arrive-time"));
-    }
 
     data.assistance = fd.getAll("assistance").filter(function (x) { return ASSISTANCE.indexOf(x) !== -1; });
     data.pickupStation = "";
@@ -1137,15 +1134,9 @@
     if (data.assistance.indexOf("Pick-up required at railway station") !== -1) {
       data.pickupStation = (fd.get("pickupStation") || "").trim();
       data.pickupTrain = (fd.get("pickupTrain") || "").trim();
-      if (!data.pickupStation) {
-        return invalid("Please tell us which station to meet you at.", document.getElementById("rsvp-station"));
-      }
     }
     if (data.assistance.indexOf("Special medical care") !== -1) {
       data.medicalNote = (fd.get("medicalNote") || "").trim();
-      if (!data.medicalNote) {
-        return invalid("Please tell us what we should arrange.", document.getElementById("rsvp-medical"));
-      }
     }
 
     // ID proofs, all optional: a card counts only once a file is attached.
@@ -1282,7 +1273,7 @@
       sum.appendChild(n);
     }
     li("Guests:", d.guests + (d.guests === "1" ? " person" : " people"));
-    li("Arriving:", d.arriveDate + ", " + fmtTime(d.arriveTime) + " by " + d.travelBy.toLowerCase());
+    li("Arriving:", d.arriveDate + (d.arriveTime ? ", " + fmtTime(d.arriveTime) : "") + " by " + d.travelBy.toLowerCase());
     if (d.assistance.length) li("Assistance:", d.assistance.join(", "));
     li("ID proofs:", uploaded ? uploaded + " uploaded" : "none yet, you can send them later");
 
