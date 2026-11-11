@@ -3,8 +3,12 @@
 Static site for **save-the-date.arunav.work**. The page is written in the voice of
 the bride's parents, **Sonia & Tarun Sharma**, and collects RSVPs for both days.
 
+Handing this to another developer? `HANDOFF.md` is written to be pasted into a
+fresh Claude session: it covers both sites, the shared backend and the traps.
+
 ```
 index.html          Whole site — markup, styles and behaviour in one file
+HANDOFF.md          Briefing for whoever picks this up next
 assets/             Photography and the Evara logo
 assets/gallery/     Gallery photographs (see below)
 CNAME               Custom domain for GitHub Pages
