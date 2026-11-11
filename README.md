@@ -35,8 +35,8 @@ countdown → events (Day One and Day Two) → RSVP → who to call → footer.
   keep the page silent and hide the button.
 - **Motion** — each section settles in as it arrives, and a few layers drift
   against the scroll: the hero photograph, Ganesh above the shloka, the washes
-  behind the venue card, the glow on the countdown and footer, and the gallery
-  photographs inside their frames. Both run off one rAF-throttled scroll pass
+  behind the venue card, and the glow on the countdown and footer. Reveals run
+  on the scroll event itself and the drift on one rAF-throttled pass
   rather than an IntersectionObserver, so nothing can stay invisible because a
   callback never arrived, and both are skipped entirely for
   `prefers-reduced-motion`.
