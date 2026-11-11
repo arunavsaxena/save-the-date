@@ -73,7 +73,7 @@ Run `rotateBrideInviteKey` if the link leaks, then send guests the new one.
 
 **ID proofs never block a reply.** Each guest card may be left empty. Files are
 uploaded first; if one fails, the RSVP is still saved and the thank-you screen
-says which to send to Vedika or Tarun instead. The sheet records how many
+says to send them on WhatsApp to one of the numbers below. The sheet records how many
 arrived, and links the folder when there is one.
 
 **Keep validated values ASCII.** Any value the backend checks against a fixed list
@@ -151,24 +151,30 @@ editor has no merge, so whoever saves last wins.
 
 ### Phone numbers
 
-Names and roles (Tarun, Sonia, Vedika) are in `index.html`; the numbers are not.
-They live in the Apps Script project's Script Properties under **`CONTACTS_BRIDE`**
-as JSON, and are served only to visitors holding a valid invite key. The
-parents carry no role label, so leave those blank:
+Names are in `index.html`; the numbers are not. They live in the Apps Script
+project's Script Properties under **`CONTACTS_BRIDE`** as JSON, and are served
+only to visitors holding a valid invite key. The parents carry no role label, so
+leave those blank:
 
 ```json
 [
   {"name": "Tarun Sharma", "role": "", "phone": "+91 98xxx xxxxx"},
   {"name": "Sonia Sharma", "role": "", "phone": "+91 98xxx xxxxx"},
-  {"name": "Vedika", "role": "RSVP co-ordinator", "phone": "+91 98xxx xxxxx"}
+  {"name": "RSVP co-ordinator", "role": "", "phone": ""}
 ]
 ```
+
+Each name carries a call button and a WhatsApp button: `tel:` and `wa.me/` built
+from the digits of `phone`. An entry with an empty `phone` — the co-ordinator,
+until that number exists — shows the two buttons greyed out, and so does every
+row for a visitor who arrived without the invite key.
 
 ## Before sharing with guests
 
 - [x] Invite key created; share the `?k=…` link, not the bare domain
 - [x] Backend deployed and test replies confirmed in **Bride side RSVPs**
-- [ ] Fill `CONTACTS_BRIDE` with the three numbers
+- [ ] Add the RSVP co-ordinator's number to `CONTACTS_BRIDE` (Tarun's and
+      Sonia's are in)
 - [ ] Listen to the page once on a phone, to check the music starts and mutes
 - [x] Music file added (`assets/shloka.mp3`)
 - [ ] Confirm the Google Maps link points at the right Evara property
