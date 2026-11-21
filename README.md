@@ -165,16 +165,15 @@ leave those blank:
 ```
 
 Each name carries a call button and a WhatsApp button: `tel:` and `wa.me/` built
-from the digits of `phone`. An entry with an empty `phone` — the co-ordinator,
-until that number exists — shows the two buttons greyed out, and so does every
-row for a visitor who arrived without the invite key.
+from the digits of `phone`. An entry with an empty `phone` shows the two buttons
+greyed out, and so does every row for a visitor who arrived without the invite
+key. All three numbers are filled in.
 
 ## Before sharing with guests
 
 - [x] Invite key created; share the `?k=…` link, not the bare domain
 - [x] Backend deployed and test replies confirmed in **Bride side RSVPs**
-- [ ] Add the RSVP co-ordinator's number to `CONTACTS_BRIDE` (Tarun's and
-      Sonia's are in)
+- [x] `CONTACTS_BRIDE` holds all three numbers (Tarun, Sonia, co-ordinator)
 - [ ] Listen to the page once on a phone, to check the music starts and mutes
 - [x] Music file added (`assets/shloka.mp3`)
 - [ ] Confirm the Google Maps link points at the right Evara property
