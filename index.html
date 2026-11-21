@@ -1261,7 +1261,8 @@
     var CACHE = "std-contacts";
     try {
       var cached = JSON.parse(sessionStorage.getItem(CACHE) || "null");
-      if (cached && cached.length) { renderContacts(cached, ""); return; }
+      var usable = cached && cached.length && cached.some(function (c) { return c && c.phone; });
+      if (usable) { renderContacts(cached, ""); return; }
     } catch (e) {}
     post({ kind: "contacts" }).then(function (j) {
       var list = Array.isArray(j.contacts) ? j.contacts.filter(function (c) { return c && c.name; }) : [];
