@@ -1269,7 +1269,12 @@
       if (!list.length) return;
       renderContacts(list, "");
       try { sessionStorage.setItem(CACHE, JSON.stringify(list)); } catch (e) {}
-    }).catch(function () { /* keep the names without numbers */ });
+    }).catch(function () {
+      // A refused or unreachable backend leaves the names without numbers; say
+      // why, the same as for a visitor who never had a key, instead of leaving
+      // three greyed-out buttons with no explanation.
+      renderContacts(CONTACTS, "Phone numbers appear when you open the link from your invitation.");
+    });
   })();
 })();
 </script>
