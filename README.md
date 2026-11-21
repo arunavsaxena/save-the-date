@@ -115,6 +115,11 @@ every change goes out like this.
    fixed list (the days, the modes, the dates, the assistance options) must be
    plain ASCII on both sides. A middle dot does not survive the POST into Apps
    Script and every reply is rejected.
+
+   **And never put a time through `clean_`.** It strips the colon, so the
+   `14:30` the guest picked reaches `time_` as `14 30` and the whole reply is
+   refused — for a field the form calls optional. `time_` is the only check it
+   needs.
 5. **Paste it in.** In the editor: select all, paste, then restore the
    `DRIVE_FOLDER_ID` line the deployed copy had. Save (⌘S / Ctrl+S) and wait for
    "Saved to Drive". A syntax error blocks the save, which is the first check.
